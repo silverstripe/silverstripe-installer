@@ -803,6 +803,12 @@ PHP
 DirectorySlash Off
 </IfModule>
 
+<Files *.ss>
+Order deny,allow
+Deny from all
+Allow from 127.0.0.1
+</Files>
+
 RewriteEngine On
 $baseClause
 RewriteCond %{REQUEST_URI} !(\.gif)|(\.jpg)|(\.png)|(\.css)|(\.js)|(\.php)$ 
@@ -840,6 +846,12 @@ TEXT
 <IfModule mod_dir.c>
 DirectorySlash Off
 </IfModule>
+
+<Files *.ss>
+Order deny,allow
+Deny from all
+Allow from 127.0.0.1
+</Files>
 
 RewriteEngine On
 $baseClause
