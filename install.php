@@ -687,12 +687,12 @@ PHP
 		$_SERVER['SCRIPT_FILENAME'] = dirname(realpath($_SERVER['SCRIPT_FILENAME'])) . '/sapphire/main.php';
 		chdir('sapphire');
 
+		$_GET['flush'] = true;
 		require_once('core/Core.php');
 	
 		$this->statusMessage("Building database schema...");
 
 		// Build database
-		$_GET['flush'] = true;
 		$con = new Controller();
 		$con->pushCurrent();
 
