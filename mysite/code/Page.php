@@ -20,6 +20,7 @@ class Page_Controller extends ContentController {
 		Requirements::themedCSS("layout"); 
 		Requirements::themedCSS("typography"); 
 		Requirements::themedCSS("form"); 
+		
 	}
 	
 }
