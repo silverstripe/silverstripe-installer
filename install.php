@@ -50,6 +50,10 @@ if(file_exists('mysite/_config.php')) {
 	if(preg_match("/\\\$database\s*=\s*[^\n\r]+[\n\r]/", file_get_contents("mysite/_config.php"), $parts)) {
 		eval($parts[0]);
 		if($database) $alreadyInstalled = true;
+	// Assume that if $databaseConfig is defined in mysite/_config.php, then a non-environment-based installation has
+	// already gone ahead
+	} else if(preg_match("/\\\$databaseConfig\s*=\s*[^\n\r]+[\n\r]/", file_get_contents("mysite/_config.php"), $parts)) {
+		$alreadyInstalled = true;
 	}
 	
 }
