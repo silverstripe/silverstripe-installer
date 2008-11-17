@@ -44,7 +44,15 @@ if(isset($_REQUEST['admin'])) {
 	);
 }
 
-$alreadyInstalled = (file_exists('mysite/_config.php') || file_exists('tutorial/_config.php'));
+$alreadyInstalled = false;
+if(file_exists('mysite/_config.php')) {
+	// Find the $database variable in the relevant config file without having to execute the config file
+	if(preg_match("/\\\$database\s*=\s*[^\n\r]+[\n\r]/", file_get_contents("mysite/_config.php"), $parts)) {
+		eval($parts[0]);
+		if($database) $alreadyInstalled = true;
+	}
+	
+}
 
 if(file_exists('sapphire/silverstripe_version')) {
 	$sapphireVersionFile = file_get_contents('sapphire/silverstripe_version');
@@ -150,7 +158,7 @@ class InstallRequirements {
 		$this->requireFile('cms', array("File permissions", "cms/ folder exists", "There's no cms folder."));
 		$this->requireFile('jsparty', array("File permissions", "jsparty/ folder exists", "There's no jsparty folder."));
 		$this->requireWriteable('.htaccess', array("File permissions", "Is the .htaccess file writeable?", null));
-		$this->requireWriteable('mysite', array("File permissions", "Is the mysite/ folder writeable?", null));
+		$this->requireWriteable('mysite/_config.php', array("File permissions", "Is the mysite/_config.php file writeable?", null));
 		$this->requireWriteable('assets', array("File permissions", "Is the assets/ folder writeable?", null));
 		
 		$this->requireTempFolder(array('File permissions', 'Is the temporary folder writeable?', null));
