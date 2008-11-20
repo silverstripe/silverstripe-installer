@@ -374,23 +374,37 @@ class InstallRequirements {
 		
 		if(!is_writeable($filename)) {
 			if(function_exists('posix_getgroups')) {
-				$user = posix_getpwuid(posix_geteuid());
-				$groups = posix_getgroups();
-				foreach($groups as $group) {
-					$groupInfo = posix_getgrgid($group);
-					$groupList[] = $groupInfo['name'];
+				$userID = posix_geteuid();
+				$user = posix_getpwuid($userID);
+
+				$currentOwnerID = fileowner($filename);
+				$currentOwner = posix_getpwuid($currentOwnerID);
+
+				$testDetails[2] .= "User '$user[name]' needs to be able to write to this file:\n$filename\n\nThe file is currently owned by '$currentOwner[name]'.  ";
+
+				if($user['name'] == $currentOwner['name']) {
+					$testDetails[2] .= "We recommend that you make the file writeable.";
+				} else {
+					
+					$groups = posix_getgroups();
+					foreach($groups as $group) {
+						$groupInfo = posix_getgrgid($group);
+						if(in_array($currentOwner['name'], $groupInfo['members'])) $groupList[] = $groupInfo['name'];
+					}
+					if($groupList) {
+						$testDetails[2] .= "	We recommend that you make the file group-writeable and change the group to one of these groups:\n - ". implode("\n - ", $groupList)
+							. "\n\nFor example:\nchmod g+w $filename\nchgrp " . $groupList[0] . " $filename";  		
+					} else {
+						$testDetails[2] .= "  There is no user-group that contains both the web-server user and the owner of this file.  Change the ownership of the file, create a new group, or temporarily make the file writeable by everyone during the install process.";
+					}
 				}
-				$groupList = "'" . implode("', '", $groupList) . "'";		}
-				
-			$testDetails[2] .= "User '$user[name]' needs to be able to write to this file:\n$filename";
+
+			} else {
+				$testDetails[2] .= "The webserver user needs to be able to write to this file:\n$filename";
+			}
+			
 			$this->error($testDetails);
 		}
-		/*
-			} else {
-			$testDetails[2] .= "Unable to detect whether I can write to files. Please ensure $filename is writable.";
-			$this->warning($testDetails);
-		}
-		*/
 	}
 	
 	function requireTempFolder($testDetails) {
