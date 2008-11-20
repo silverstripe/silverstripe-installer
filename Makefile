@@ -16,6 +16,5 @@ test: clean install
 	$(MAKE) -C sapphire test
 
 clean:
-	if [ -f .htaccess ]; then rm .htaccess; fi
-	touch .htaccess
-	if [ -f mysite/_config.php ]; then rm mysite/_config.php; fi
+	svn revert .htaccess
+	svn revert mysite/_config.php
