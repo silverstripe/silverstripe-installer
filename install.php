@@ -20,6 +20,7 @@ foreach($envFiles as $envFile) {
         }
 }
 
+
 // Load database config
 if(isset($_REQUEST['mysql'])) {
 	$databaseConfig = $_REQUEST['mysql'];
@@ -369,25 +370,27 @@ class InstallRequirements {
 	
 	function requireWriteable($filename, $testDetails) {
 		$this->testing($testDetails);
-		$filename = $this->getBaseDir() . $filename;
+		$filename = $this->getBaseDir() . str_replace("/", DIRECTORY_SEPARATOR,$filename);
 		
-		if(function_exists('posix_getgroups')) {
-			if(!is_writeable($filename)) {
+		if(!is_writeable($filename)) {
+			if(function_exists('posix_getgroups')) {
 				$user = posix_getpwuid(posix_geteuid());
 				$groups = posix_getgroups();
 				foreach($groups as $group) {
 					$groupInfo = posix_getgrgid($group);
 					$groupList[] = $groupInfo['name'];
 				}
-				$groupList = "'" . implode("', '", $groupList) . "'";
+				$groupList = "'" . implode("', '", $groupList) . "'";		}
 				
-				$testDetails[2] .= "User '$user[name]' needs to be able to write to this file:\n$filename";
-				$this->error($testDetails);
-			}
-		} else {
+			$testDetails[2] .= "User '$user[name]' needs to be able to write to this file:\n$filename";
+			$this->error($testDetails);
+		}
+		/*
+			} else {
 			$testDetails[2] .= "Unable to detect whether I can write to files. Please ensure $filename is writable.";
 			$this->warning($testDetails);
 		}
+		*/
 	}
 	
 	function requireTempFolder($testDetails) {
@@ -539,7 +542,7 @@ class InstallRequirements {
 	function getBaseDir() {
 		// Cache the value so that when the installer mucks with SCRIPT_FILENAME half way through, this method
 		// still returns the correct value.
-		if(!$this->baseDir) $this->baseDir = realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . '/';
+		if(!$this->baseDir) $this->baseDir = realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . DIRECTORY_SEPARATOR;
 		return $this->baseDir;
 	}
 	
