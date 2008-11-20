@@ -5,16 +5,6 @@
 # Most users should simply visit the site root in your web browser.
 #
 
-suffix=`basename \`dirname \\\`pwd\\\`\``
-
-install: mysite/_config.php
-
-mysite/_config.php:
-	php install.php install SS_testdatabase_${suffix}
-
-test: clean install
+test:
+	php ./sapphire/cli-script.php dev/build
 	$(MAKE) -C sapphire test
-
-clean:
-	svn revert .htaccess
-	svn revert mysite/_config.php
