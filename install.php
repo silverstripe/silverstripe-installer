@@ -838,6 +838,7 @@ Deny from all
 Allow from 127.0.0.1
 </Files>
 
+<IfModule mod_rewrite.c>
 RewriteEngine On
 $baseClause
 RewriteCond %{REQUEST_URI} !(\.gif)|(\.jpg)|(\.png)|(\.css)|(\.js)|(\.php)$ 
@@ -845,6 +846,7 @@ RewriteCond %{REQUEST_URI} !(\.gif)|(\.jpg)|(\.png)|(\.css)|(\.js)|(\.php)$
 RewriteCond %{REQUEST_URI} ^(.*)$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* sapphire/main.php?url=%1&%{QUERY_STRING} [L]
+</IfModule>
 TEXT
 		;
 		
@@ -882,6 +884,7 @@ Deny from all
 Allow from 127.0.0.1
 </Files>
 
+<IfModule mod_rewrite.c>
 RewriteEngine On
 $baseClause
 RewriteCond %{REQUEST_URI} !(\.gif)|(\.jpg)|(\.png)|(\.css)|(\.js)|(\.php)$ 
@@ -889,6 +892,7 @@ RewriteCond %{REQUEST_URI} !(\.gif)|(\.jpg)|(\.png)|(\.css)|(\.js)|(\.php)$
 RewriteCond %{REQUEST_URI} ^(.*)$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* $_SERVER[DOCUMENT_ROOT]/sapphire/main.php?url=%1&%{QUERY_STRING} [L]
+</IfModule>
 TEXT;
 
 		if(file_exists($this->getBaseDir() . '.htaccess')) {
