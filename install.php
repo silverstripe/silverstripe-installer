@@ -1,13 +1,31 @@
 <?php
 
+/************************************************************************************
+ ************************************************************************************
+ **                                                                                **
+ **  If you can read this text in your browser then you don't have PHP installed.  **
+ **  Please install PHP 5.0 or higher, preferably PHP 5.2.                         **
+ **                                                                                **
+ ************************************************************************************
+ ************************************************************************************/
+
 /**
  * SilverStripe CMS Installer
  * This installer doesn't use any of the fancy Sapphire stuff in case it's unsupported.
+ * It's also PHP4 syntax compatable
  */
 
 ini_set('max_execution_time', 0);
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
+
+$majorVersion = strtok(phpversion(),'.');
+if($majorVersion < 5) {
+	header("HTTP/1.1 500 Server Error");
+	echo str_replace('$PHPVersion', phpversion(), file_get_contents("sapphire/dev/install/php5-required.html"));
+	die();
+}
+
 
 // Include environment files
 $usingEnv = false;
@@ -98,7 +116,7 @@ if($installFromCli && ($req->hasErrors() || $dbReq->hasErrors())) {
 if(isset($_REQUEST['go']) || $installFromCli && !$req->hasErrors() && !$dbReq->hasErrors()) {
 	// Confirm before reinstalling
 	if(!isset($_REQUEST['force_reinstall']) && !$installFromCli && $alreadyInstalled) {
-		include('config-form.html');
+		include('sapphire/dev/install/config-form.html');
 		
 	} else {
 		$inst = new Installer();
@@ -112,7 +130,7 @@ if(isset($_REQUEST['go']) || $installFromCli && !$req->hasErrors() && !$dbReq->h
 
 // Show the config form
 } else {
-	include('config-form.html');	
+	include('sapphire/dev/install/config-form.html');	
 }
 
 /**
@@ -153,7 +171,7 @@ class InstallRequirements {
 		$this->requirePHPVersion('5.2.0', '5.0.4', array("PHP Configuration", "PHP5 installed", null, "PHP version " . phpversion()));
 
 		// Check that we can identify the root folder successfully
-		$this->requireFile('config-form.html', array("File permissions", 
+		$this->requireFile('sapphire/dev/install/config-form.html', array("File permissions", 
 			"Does the webserver know where files are stored?", 
 			"The webserver isn't letting me identify where files are stored.",
 			$this->getBaseDir()
@@ -572,7 +590,8 @@ class InstallRequirements {
 	}
 
 
-	protected $baseDir;
+	// Must be PHP4 compatible
+	var $baseDir;
 	function getBaseDir() {
 		// Cache the value so that when the installer mucks with SCRIPT_FILENAME half way through, this method
 		// still returns the correct value.
