@@ -884,10 +884,6 @@ PHP
 		else $baseClause = "";
 		
 		$rewrite = <<<TEXT
-<IfModule mod_dir.c>
-DirectorySlash Off
-</IfModule>
-
 <Files *.ss>
 Order deny,allow
 Deny from all
