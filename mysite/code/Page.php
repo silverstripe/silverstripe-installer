@@ -50,31 +50,6 @@ class Page_Controller extends ContentController {
 	  	return $this->customise($data)->renderWith(array('Page_results', 'Page'));
 	}
 	
-	function TestForm() {
-		
-		$fields = new FieldSet(
-	      	new TextField("Title", "Title"),
-			new TextareaField("Message", "Message")
-	  	);
-		$actions = new FieldSet(
-	      	new FormAction('doTestForm', 'Submit')
-	  	);
-
-	  	$form = new Form($this, "TestForm", $fields, $actions);
-	
-
-	
-		if(class_exists('SpamProtecterManager')) { 
-			$protecter = SpamProtecterManager::update_form($form); 
-			$protecter->setFieldMapping('Title', 'Message');
-		}
-	
-		return $form;
-	}
-	
-	function doTestForm($data, $form) {
-		Director::redirectBack();
-	}
 }
 
 ?>
