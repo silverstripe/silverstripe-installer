@@ -889,7 +889,7 @@ Allow from 127.0.0.1
 <IfModule mod_rewrite.c>
 RewriteEngine On
 $baseClause
-RewriteCond %{REQUEST_URI} !(\.gif)|(\.jpg)|(\.png)|(\.css)|(\.js)|(\.php)$ 
+RewriteCond %{REQUEST_URI} !(\.gif$)|(\.jpg$)|(\.png$)|(\.css$)|(\.js$)|(\.php$) 
 
 RewriteCond %{REQUEST_URI} ^(.*)$
 RewriteCond %{REQUEST_FILENAME} !-f
