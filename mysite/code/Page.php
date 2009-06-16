@@ -2,29 +2,11 @@
 
 class Page extends SiteTree {
 	
-	static $api_access = true;
-	
 	public static $db = array(
-		'AdditionalProperty' => 'Text', 
 	);
 	
 	public static $has_one = array(
 	);
-	
-	function getCMSFields() {
-		$fields = parent::getCMSFields();
-	
-		if($this->hasExtension('Translatable')) {
-			$translation = $this->getTranslation(Translatable::default_locale());
-			$transformation = new Translatable_Transformation($translation);
-			$additionalField = $transformation->transformFormField(
-				new TextField('AdditionalProperty')
-			);
-			$fields->addFieldToTab('Root.Content.Main', $additionalField);
-		}
-		
-		return $fields;
-	}
 	
 }
 

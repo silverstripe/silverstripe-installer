@@ -4,7 +4,7 @@ global $project;
 $project = 'mysite';
 
 global $database;
-$database = "SS_phpinstaller_23";
+$database = "";
 
 require_once("conf/ConfigureFromEnv.php");
 
@@ -12,5 +12,4 @@ require_once("conf/ConfigureFromEnv.php");
 // downloaded from http://www.silverstripe.com/themes/
 SSViewer::set_theme('blackcandy');
 
-//Object::add_extension('SiteTree', 'Translatable');
 ?>
