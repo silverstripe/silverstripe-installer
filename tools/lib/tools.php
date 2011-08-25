@@ -105,7 +105,7 @@ class Zip {
 	}
 
 	private static function recursive_copy($src,$dst) {
-	    $dir = opendir($src);
+		$dir = opendir($src);
 		mkdir($dst);
 		while(false !==($file=readdir($dir)) ) {
 			if (!in_array($file, array('.', '..'))) {
@@ -160,16 +160,19 @@ class Zip {
 						$dstname = $parts[$skipdirs];
 					}
 					
-					// don't use move to avoid 'Invalid cross-device link' WARNING
-					self::recursive_copy($tmpdir.'/'.$srcname, $dest.'/'.$dstname);
-					self::recursive_rmdir($tmpdir.'/'.$srcname);
+					if(@!rename($tmpdir.'/'.$srcname, $dest.'/'.$dstname))
+					{
+						// don't use move to avoid 'Invalid cross-device link' WARNING
+						self::recursive_copy($tmpdir.'/'.$srcname, $dest.'/'.$dstname);
+						self::recursive_rmdir($tmpdir.'/'.$srcname);
+					}
 				}
 			}
 			else {
 				$zip->extractTo($dest);
 			}
 			
-		    $zip->close();
+			$zip->close();
 		} else {
 			throw new Exception('Could not extract zip at '.$src.' to '.$dest);
 		}
