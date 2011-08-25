@@ -94,6 +94,32 @@ class Piston {
 }
 
 class Zip {
+	private static function recursive_rmdir($path) {
+		if(is_file($path))
+			unlink($path);
+		else
+		{
+			array_map(array('self', 'recursive_rmdir'), glob($path.DIRECTORY_SEPARATOR.'*'));
+			rmdir($path);
+		}
+	}
+
+	private static function recursive_copy($src,$dst) {
+	    $dir = opendir($src);
+		mkdir($dst);
+		while(false !==($file=readdir($dir)) ) {
+			if (!in_array($file, array('.', '..'))) {
+				if ( is_dir($src.DIRECTORY_SEPARATOR.$file) ) {
+					self::recursive_copy($src.DIRECTORY_SEPARATOR.$file, $dst.DIRECTORY_SEPARATOR.$file);
+				}
+				else {
+					copy($src.DIRECTORY_SEPARATOR.$file, $dst.DIRECTORY_SEPARATOR.$file);
+				}
+			}
+		}
+		closedir($dir);
+	}
+
 	static function available() {
 		return class_exists('ZipArchive');
 	}
@@ -134,7 +160,9 @@ class Zip {
 						$dstname = $parts[$skipdirs];
 					}
 					
-					rename($tmpdir.'/'.$srcname, $dest.'/'.$dstname);
+					// don't use move to avoid 'Invalid cross-device link' WARNING
+					self::recursive_copy($tmpdir.'/'.$srcname, $dest.'/'.$dstname);
+					self::recursive_rmdir($tmpdir.'/'.$srcname);
 				}
 			}
 			else {
