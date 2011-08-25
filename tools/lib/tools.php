@@ -71,7 +71,7 @@ class GIT {
 	
 	static function ignore($dir) {
 		$hndl = fopen('.gitignore', 'a');
-		fwrite($hfnl, $dir."\n");
+		fwrite($hndl, $dir."\n");
 		fclose($hndl);
 	}
 	
