@@ -21,7 +21,9 @@ phing help
 	<property name="changelog-definitions-file" value="changelog-definitions" override="true" />
 	<property name="ni_build" value="false" override="true"/>   <!-- Prompt if local changes would be overwritten by update -->
 	<property name="changelogSort" value="type" override="true"/>
-	
+
+	<property name="archivedest" value="${basedir}/../" />
+
 	<available file="${dependent-modules-file}" property="dependent-modules-file-exists" />
 	<available file="${changelog-definition-file}" property="changelog-definition-file-exists" />
 
@@ -56,6 +58,7 @@ Options:
 
 -Darchivetype (the type of archive to use zip or tar.giz)
 -Darchivename (the name of the created archive file)
+-Darchivedest (the destination directory to put the archive)
 
 -Dtagname (the name of the tag/branch to check out or to create as a new tag)
 -DincludeBaseDir (whether or not to include the base dir in a git checkout operation)
@@ -103,55 +106,6 @@ Options:
 		<gitstash repository="${reponame}" gitPath="${gitPath1}" pop="true" />
 
 		<echo msg="checked out ${tagname} tag/branch in '${reponame}' git repository" />
-	</target>
-
-	<!-- Archives the base folder as a *.tar.gz or *.zip, without version information -->
-	<target name="archiveTask" if="archivetype,basedir,archivename,archivefilename">
-		<!-- Copy into a new folder, and tar the whole folder in order to avoid toplevel extracts -->
-		<php function="sys_get_temp_dir" returnProperty="systmp" />
-		<property name="tmp" value="${systmp}/archiveTask/" />
-		
-		<copy todir="${tmp}/${archivename}">
-			<fileset dir="${basedir}">
-				<include name="**/**" />
-				<exclude name="mysite/local.conf.php" />
-				<exclude name="mysite/db.conf.php" />
-				<exclude name="mysite/*.log" />
-				<exclude name="**/.svn/**" />
-				<exclude name="**/.git/**" />
-				<exclude name="**/.project" />  <!-- remove eclipse configuration file -->
-				<exclude name="**/.buildpath" />
-				<exclude name="**/.settings" />
-				<exclude name="**/.idea/**" />  <!-- remove phpstorm configuration file -->
-			</fileset>
-		</copy>
-		
-		<!-- create tar archive -->
-		<if>
-			<equals arg1="${archivetype}" arg2="tar.gz" casesensitive="false" trim="true"/>
-			<then>
-				<tar destfile="${basedir}/${archivefilename}" compression="gzip">
-					<fileset dir="${tmp}">
-						<include name="**/**" />
-					</fileset>
-				</tar>
-			</then>
-		</if>
-
-		<!-- create zip archive -->
-		<if>
-			<equals arg1="${archivetype}" arg2="zip" casesensitive="false" trim="true"/>
-			<then>
-				<zip destfile="${basedir}/${archivefilename}">
-					<fileset dir="${tmp}">
-						<include name="**/**" />
-					</fileset>
-				</zip>
-			</then>
-		</if>
-		
-		<delete dir="${tmp}" />
-		
 	</target>
 
 	<target name="createDependentModulesFile" unless="dependent-modules-file-exists">
@@ -228,8 +182,13 @@ Options:
 		<foreach list="${GitReposList}" param="reponame" target="checkoutTask" />
 	</target>
 
-	<!-- Creates a gzip archive from the current folder (removes any version control files) -->
-	<target name="archive" if="basedir">
+	<target name="archive" if="basedir" description="Creates a gzip archive from the current folder (removes any version control files)">
+
+		<if>
+			<not><isset property="version"/></not>
+			<then><input propertyName="version" defaultValue="x.y.z" promptChar=":">Please choose a version</input></then>
+		</if>
+
 		<if>
 			<isset property="archivetype"/>
 			<then>
@@ -247,15 +206,82 @@ Options:
 				<echo msg="Creating '${archivename}' archive"/>
 			</then>
 			<else>
-				<input propertyName="archivename" defaultValue="archive" promptChar=":">Please enter a name for the archive (without extension)</input>
-				<property name="archivefilename" value="${archivename}.${archivetype}" />
+				<input propertyName="archivename" defaultValue="SilverStripe-v${version}" promptChar=":">Please enter a name for the archive (without extension)</input>
 				<echo msg="Creating '${archivename}' archive"/>
 			</else>
 		</if>
 
-		<phingCall target="archiveTask" />
-		<echo msg="Created archive in: ${basedir}/${archivename}" />
+		<property name="archivefilename" value="${archivename}.${archivetype}" />
 
+		<!-- Copy into a new folder, and tar the whole folder in order to avoid toplevel extracts -->
+		<php function="sys_get_temp_dir" returnProperty="systmp" />
+		<property name="tmp" value="${systmp}/archiveTask/" />
+
+		<copy todir="${tmp}/${archivename}">
+			<fileset dir="${basedir}">
+				<include name="**/**" />
+				<exclude name="assets/**" />
+				<exclude name="mysite/local.conf.php" />
+				<exclude name="mysite/db.conf.php" />
+				<exclude name="**/*.log" />
+				<exclude name="**/.svn/**" />
+				<exclude name="**/.git/**" />
+				<exclude name="**/.project" />  <!-- remove eclipse configuration file -->
+				<exclude name="**/.buildpath" />
+				<exclude name="**/.settings" />
+				<exclude name="**/.idea/**" />  <!-- remove phpstorm configuration file -->
+				<exclude name="tools/**" />
+				<exclude name="**/tests/**" />
+				<exclude name="cms/docs/**" />
+				<exclude name="sapphire/docs/**" />
+				<exclude name="build.xml" />
+				<exclude name="dependent-modules*" />
+				<exclude name="changelog-definitions*" />
+				<exclude name="_ss_environment.php" />
+			</fileset>
+			<fileset dir="${basedir}">
+				<include name="assets/Uploads" />
+				<include name="assets/.htaccess" />
+				<include name="assets/web.config" />
+			</fileset>
+		</copy>
+
+		<!-- TODO Remove once we figured out how to nest git repositories for themes -->
+		<move file="${tmp}/${archivename}/themes/blackcandy/blackcandy_blog" todir="${tmp}/${archivename}/themes" haltonerror='false' />
+		<move file="${tmp}/${archivename}/themes/blackcandy/blackcandy_calendar" todir="${tmp}/${archivename}/themes" haltonerror='false' />
+		<move file="${tmp}/${archivename}/themes/blackcandy/blackcandy" todir="${tmp}/${archivename}/themes" haltonerror='false' />
+
+		<!-- Write version info to the core folders (shouldn't be in version control) -->
+		<echo msg="${version}" file="${tmp}/${archivename}/sapphire/silverstripe_version" />
+		<echo msg="${version}" file="${tmp}/${archivename}/cms/silverstripe_version" />
+
+		<!-- create tar archive -->
+		<if>
+			<equals arg1="${archivetype}" arg2="tar.gz" casesensitive="false" trim="true"/>
+			<then>
+				<tar destfile="${archivedest}/${archivefilename}" compression="gzip">
+					<fileset dir="${tmp}">
+						<include name="**/**" />
+					</fileset>
+				</tar>
+			</then>
+		</if>
+
+		<!-- create zip archive -->
+		<if>
+			<equals arg1="${archivetype}" arg2="zip" casesensitive="false" trim="true"/>
+			<then>
+				<zip destfile="${archivedest}/${archivefilename}">
+					<fileset dir="${tmp}">
+						<include name="**/**" />
+					</fileset>
+				</zip>
+			</then>
+		</if>
+		
+		<delete dir="${tmp}" />
+
+		<echo msg="Created archive in: ${basedir}/${archivename}" />
 	</target>
 
 	<!-- Load modules where sensitive dependency exists -->

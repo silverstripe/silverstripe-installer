@@ -103,6 +103,8 @@ class CreateChangelog extends SilverStripeBuildTask {
 		elseif ($from) $range = " $from..HEAD";
 		else $range = "";
 
+		$this->log(sprintf('Changing to directory "%s"', $path), Project::MSG_INFO);
+
 		chdir("$this->baseDir/$path");  //switch to the module's path
 
 		// Internal serialization format, ideally this would be JSON but we can't escape characters in git logs.
@@ -169,9 +171,10 @@ class CreateChangelog extends SilverStripeBuildTask {
 		$arr = array();
 		$parts = explode('|||', $commit);
 		foreach($parts as $part) {
-			preg_match('/(.*)\:(.*)/', $part, $matches);
+			preg_match('/([^:]*)\:(.*)/', $part, $matches);
 			$arr[$matches[1]] = $matches[2];
 		}
+		
 		return $arr;
 	}
 
@@ -229,6 +232,7 @@ class CreateChangelog extends SilverStripeBuildTask {
 				$logForPath = explode("\n", $this->gitLog($path));
 			}
 			foreach($logForPath as $commit) {
+				if(!$commit) continue;
 				$commitArr = $this->commitToArray($commit);
 				$commitArr['path'] = $path;
 				// Avoid duplicates by keying on hash
@@ -266,6 +270,7 @@ class CreateChangelog extends SilverStripeBuildTask {
 		//and generate markdown (add list to beginning of each item)
 		$output = "\n";
 		foreach($groupedLog as $groupName => $commits) {
+			if(!$commits) continue;
 			
 			$output .= "\n### $groupName\n\n";
 			

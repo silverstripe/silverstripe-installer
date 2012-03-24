@@ -1,4 +1,7 @@
 assets/*
 _ss_environment.php
-cms/*
-sapphire/*
+tools/phing-metadata
+silverstripe-cache
+.buildpath
+.project
+.settings
