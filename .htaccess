@@ -10,6 +10,7 @@
 	Deny from all
 </Files>
 
+ErrorDocument 403 /assets/error-403.html
 ErrorDocument 404 /assets/error-404.html
 ErrorDocument 500 /assets/error-500.html
 
