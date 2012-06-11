@@ -17,17 +17,29 @@ ErrorDocument 500 /assets/error-500.html
 	RedirectMatch 403 /silverstripe-cache(/|$)
 </IfModule>
 
+# Make sure path info is passed to PHP (but only if we can guarantee we're on
+# an apache version that supports the AcceptPathInfo directive)
+<IfModule mod_version.c>
+	<IfVersion >= 2.0.30>
+		AcceptPathInfo Default
+	</IfVersion>
+</IfModule>
+	
 <IfModule mod_rewrite.c>
+	# Turn on the rewrite engine and let PHP know it's on
 	SetEnv HTTP_MOD_REWRITE On
 	RewriteEngine On
 
-	RewriteCond %{REQUEST_URI} ^(.*)$
+	# Redirect any request that isn't to a file through main.php for SilverStripe routing
+	RewriteCond %{REQUEST_URI} ^/?(.*)$
 	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule .* framework/main.php?url=%1 [QSA]
-
+	RewriteRule .* framework/main.php/%1 [QSA]
+	
+	# If the URI contains framework/main.php, but that file doesn't exist (because 
+	# framework hasn't been installed), redirect to install.php to give a warning rather 
+	# than just infinitely looping
 	RewriteCond %{REQUEST_URI} ^(.*)/framework/main.php$
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule . %1/install.php? [R,L]
-
 </IfModule>
 ### SILVERSTRIPE END ###
