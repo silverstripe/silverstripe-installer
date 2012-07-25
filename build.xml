@@ -508,4 +508,34 @@ Your friendly automated release script.
 		<foreach list="framework,cms" param="module" target="translations-update-gl-contribs" />
 	</target>
 
+	<!-- This is a bit copy-pasta for extracting the translation files without pushing to any git branches -->
+	<target name="translations-update" description="Update the framework and cms language files locally only, can be used for previewing translations.">
+		<foreach list="framework,cms" param="module" target="translations-update-for-module" />
+	</target>
+
+	<!-- This is a bit copy-pasta for extracting the translation files without pushing to any git branches -->
+	<target name="translations-update-for-module" description="Update translations in working directory. Note: The API requests can take a couple of minutes.">
+		<propertyprompt propertyName="module" 
+			promptText="Module name?"
+			useExistingValue="true"
+			defaultValue="framework" />
+		<propertyprompt propertyName="getlocalization.${module}.project" 
+			promptText="getlocalization project"
+			useExistingValue="true"
+			defaultValue="sapphire" />
+		<propertyprompt propertyName="getlocalization.${module}.user" 
+			promptText="getlocalization username"
+			useExistingValue="true"
+			defaultValue="silverstripe" />
+		<propertyprompt propertyName="getlocalization.${module}.password" 
+			promptText="getlocalization password"
+			useExistingValue="true" />
+		<updateTranslationsTask 
+			glProductName="${getlocalization.${module}.project}" 
+			glUser="${getlocalization.${module}.user}"
+			glPassword="${getlocalization.${module}.password}"
+			modulePath="${module}" 
+		/>
+	</target>
+
 </project>
