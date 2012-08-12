@@ -443,7 +443,7 @@ Your friendly automated release script.
 			<then>
 				<exec command="git add lang/*" dir="${module}" passthru="true" checkreturn="true" />
 				<exec command="git commit -m 'MINOR Updated translations master'" dir="${module}" passthru="true" checkreturn="true" />
-				<exec command="git merge origin/master" dir="${module}" checkreturn="true" />
+				<exec command="git push --force origin translation-staging" dir="${module}" checkreturn="true" />
 			</then>
 		</if>
 	</target>
@@ -471,7 +471,7 @@ Your friendly automated release script.
 				<exec command="git add lang/*" dir="${module}" passthru="true" checkreturn="true" />
 				<exec command="git add javascript/lang/*" dir="${module}" passthru="true" checkreturn="true" />
 				<exec command="git commit -m 'MINOR Updated translations'" dir="${module}" passthru="true" checkreturn="true" />
-				<exec command="git push origin translation-staging" dir="${module}" checkreturn="true" />
+				<exec command="git push --force origin translation-staging" dir="${module}" checkreturn="true" />
 			</then>
 		</if>
 		<exec command="git checkout master" dir="${module}" checkreturn="true" />
@@ -509,7 +509,7 @@ Your friendly automated release script.
 	</target>
 
 	<!-- This is a bit copy-pasta for extracting the translation files without pushing to any git branches -->
-	<target name="translations-update" description="Update the framework and cms language files locally only, can be used for previewing translations.">
+	<target name="translations-update" description="Update the framework and cms language files locrmally only, can be used for previewing translations.">
 		<foreach list="framework,cms" param="module" target="translations-update-for-module" />
 	</target>
 
