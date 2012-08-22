@@ -1,0 +1,7 @@
+/**
+ * This typography file is included in the WYSIWYG editor
+ */
+.typography * {
+	font-family:Verdana,Arial,sans-serif;
+	font-size:1em;
+}
