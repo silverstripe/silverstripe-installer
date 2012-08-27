@@ -443,9 +443,9 @@ Your friendly automated release script.
 			<then>
 				<exec command="git add lang/*" dir="${module}" passthru="true" checkreturn="true" />
 				<exec command="git commit -m 'MINOR Updated translations master'" dir="${module}" passthru="true" checkreturn="true" />
-				<exec command="git push --force origin translation-staging" dir="${module}" checkreturn="true" />
 			</then>
 		</if>
+		<exec command="git push --force origin translation-staging" dir="${module}" checkreturn="true" />
 	</target>
 
 	<target name="translations-update-gl-masterfile" 
