@@ -63,6 +63,18 @@ TEXT;
 		return $value;
 	}
 
+	/**
+	 * @return Boolean
+	 */
+	function getInputConfirmation($prompt) {
+		$value = '';
+		do {
+			$value = $this->getInput($prompt . ' [y/n]');
+		} while(!$value);
+
+		return in_array($value, array('y', 'Y'));
+	}
+
 	function exec($cmd, $returnContent = false, $ignoreError = false) {
 		$ret = null;
 		$return = null;

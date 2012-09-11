@@ -17,6 +17,7 @@ phing help
 	<taskdef name="sschanglog" classname="tools.CreateChangelog" classpath="${project.basedir}" />
 	<taskdef name="gitstash" classname="tools.GitStashTask" classpath="${project.basedir}" />
 	<taskdef name="updateTranslationsTask" classname="tools.UpdateTranslationsTask" classpath="${project.basedir}" />
+	<taskdef name="gitconfirmedpush" classname="tools.GitConfirmedPushTask" classpath="${project.basedir}" />
 
 	<property name="basedir" value="." override="true" />
 	<property name="dependent-modules-file" value="dependent-modules" override="true" />
@@ -205,7 +206,7 @@ Options:
 		</if>
 
 		<!-- Copy into a new folder, and tar the whole folder in order to avoid toplevel extracts -->
-		<php function="sys_get_temp_dir" returnProperty="systmp" />
+		<php function="sys_get_temp_dir" returnProperty="systmp" level="verbose" />
 
 		<property name="tmp" value="${systmp}/archiveTask/" />
 		<delete dir="${tmp}" failonerror="false" quiet="true" />
@@ -442,7 +443,7 @@ Your friendly automated release script.
 			<istrue value="${git.status.${module}}" />
 			<then>
 				<exec command="git add lang/*" dir="${module}" passthru="true" checkreturn="true" />
-				<exec command="git commit -m 'MINOR Updated translations master'" dir="${module}" passthru="true" checkreturn="true" />
+				<exec command="git commit -m 'Updated translations master'" dir="${module}" passthru="true" checkreturn="true" />
 			</then>
 		</if>
 		<exec command="git push --force origin translation-staging" dir="${module}" checkreturn="true" />
@@ -470,7 +471,7 @@ Your friendly automated release script.
 			<then>
 				<exec command="git add lang/*" dir="${module}" passthru="true" checkreturn="true" />
 				<exec command="git add javascript/lang/*" dir="${module}" passthru="true" checkreturn="true" />
-				<exec command="git commit -m 'MINOR Updated translations'" dir="${module}" passthru="true" checkreturn="true" />
+				<exec command="git commit -m 'Updated translations'" dir="${module}" passthru="true" checkreturn="true" />
 				<exec command="git push --force origin translation-staging" dir="${module}" checkreturn="true" />
 			</then>
 		</if>
@@ -478,26 +479,66 @@ Your friendly automated release script.
 		<exec command="git stash pop" dir="${module}" />
 	</target>
 
-	<target name="translations-mergeback"
-		description="Copies changes from the translation staging branch back to the current branch. Doesn't use 'git merge' because the staging branch works on master. Usage: phing -Dmodule=[module] translations-mergeback">
+	<target name="translations-mergeback" description="Copies changes from the translation staging branch into master, and copies the language files back to a specific release branch.">
+		<foreach list="framework,cms" param="module" target="translations-mergeback-for-module" />
+	</target>
 
-		<php function="sys_get_temp_dir" returnProperty="systmp" />
+	<target name="translations-mergeback-for-module">
+
+		<propertyprompt propertyName="module" 
+			promptText="Module?"
+			useExistingValue="true"
+			defaultValue="framework" />
+		<echo msg="Running task for '${module}' module" />
+		
+		<php function="sys_get_temp_dir" returnProperty="systmp" level="verbose" />
 		<property name="tmp" value="${systmp}/translationsMergebackTask/" />
-		<exec command="git fetch origin" dir="${module}" checkreturn="true" />
-		<exec command="git branch --force --track translation-staging origin/translation-staging" dir="${module}" checkreturn="true" />
-		<exec command="git checkout translation-staging" dir="${module}" checkreturn="true" />
-		<copy todir="${tmp}/${module}">
-			<fileset dir="${module}/lang" />
-		</copy>
-		<exec command="git checkout 3.0" dir="${module}" checkreturn="true" />
-		<copy todir="${module}/lang" overwrite="true">
-			<fileset dir="${tmp}/${module}/" />
-		</copy>
 
-		<exec command="git add lang/*" dir="${module}" passthru="true" checkreturn="true" />
-		<exec command="git commit -m 'Updated translations'" dir="${module}" passthru="true" checkreturn="true" />
+		<!-- Ensure we're on master -->
+		<exec command="git rev-parse --abbrev-ref HEAD" dir="${module}" outputProperty="git.branch.${module}" />
+		<if>
+			<equals arg1="${git.branch.${module}}" arg2="master" />
+			<then></then>
+			<else><fail msg="Not on master branch, aborting" /></else>
+		</if>
 
-		<echo msg="Done! Please review the commit before pushing it, ensure no malicious code has been injected." />
+		<trycatch>
+			<try>
+				<!-- Merge staging into master -->
+				<echo msg="Fetching origin" />
+				<exec command="git fetch origin" dir="${module}" checkreturn="true" />
+				<echo msg="Merging origin/translation-staging into master" />
+				<exec command="git merge --squash origin/translation-staging" dir="${module}" checkreturn="true" />
+				<!-- TODO Execute only on changes, and then return errors -->
+				<exec command="git commit -m 'Updated translations'" dir="${module}" />
+				<gitconfirmedpush dir="${module}" msg="Please sanity check the ${module} UI in another language. Happy to push the changes to origin/master?" />
+
+				<!-- Copy files from master into release branch.
+					Doesn't use 'git merge' because the 'translation-staging' branch works on master. -->
+				<propertyprompt propertyName="mergebackBranch" 
+					promptText="Branch to merge back to?"
+					useExistingValue="true"
+					defaultValue="3.0" />
+				<copy todir="${tmp}/${module}">
+					<fileset dir="${module}/lang" />
+				</copy>
+				<echo msg="Copying language files from master into ${mergebackBranch}" />
+				<exec command="git branch -D _tmp-translations-mergeback" dir="${module}"  />
+				<exec command="git checkout -B _tmp-translations-mergeback origin/${mergebackBranch}" dir="${module}" checkreturn="true" />
+				<copy todir="${module}/lang" overwrite="true">
+					<fileset dir="${tmp}/${module}/" />
+				</copy>
+				<exec command="git add lang/*" dir="${module}" passthru="true" checkreturn="true" />
+				<!-- TODO Execute only on changes, and then return errors -->
+				<exec command="git commit -m 'Updated translations'" dir="${module}" passthru="true" />
+
+				<gitconfirmedpush dir="${module}" msg="Please sanity check the ${module} UI in another language. Happy to push the changes to origin/${mergebackBranch}?" />
+			</try>
+			<finally>
+				<exec command="git checkout master" dir="${module}" checkreturn="true" />
+				<exec command="git branch -D _tmp-translations-mergeback" dir="${module}" />
+			</finally>
+		</trycatch>
 
 	</target>
 
