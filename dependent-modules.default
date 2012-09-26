@@ -23,8 +23,8 @@
 # themes/mytheme git://local.server/themes/mytheme.git false
 
 
-cms:3.0 git://github.com/silverstripe/silverstripe-cms.git
-framework:3.0 git://github.com/silverstripe/sapphire.git
+cms:master git://github.com/silverstripe/silverstripe-cms.git
+framework:master git://github.com/silverstripe/sapphire.git
 themes/simple:master git://github.com/silverstripe-themes/silverstripe-simple.git
 
 
