@@ -17,13 +17,15 @@ ErrorDocument 500 /assets/error-500.html
 	RedirectMatch 403 /silverstripe-cache(/|$)
 </IfModule>
 
+AcceptPathInfo Default
+
 <IfModule mod_rewrite.c>
 	SetEnv HTTP_MOD_REWRITE On
 	RewriteEngine On
 
-	RewriteCond %{REQUEST_URI} ^(.*)$
+	RewriteCond %{REQUEST_URI} ^/?(.*)$
 	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule .* framework/main.php?url=%1 [QSA]
+	RewriteRule .* framework/main.php/%1 [QSA]
 
 	RewriteCond %{REQUEST_URI} ^(.*)/framework/main.php$
 	RewriteCond %{REQUEST_FILENAME} !-f
