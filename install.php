@@ -909,13 +909,14 @@ class Installer extends InstallRequirements {
 	}
 	
 	function install($config) {
+		$themePath = file_exists('themes/blackcandy/blackcandy') ? 'themes/blackcandy/blackcandy' : 'themes/blackcandy';
 ?>
 <html>
 	<head>
 		<title>Installing SilverStripe...</title>
-		<link rel="stylesheet" type="text/css" href="themes/blackcandy/css/layout.css" />
-		<link rel="stylesheet" type="text/css" href="themes/blackcandy/css/typography.css" />
-		<link rel="stylesheet" type="text/css" href="themes/blackcandy/css/form.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $themePath ?>/css/layout.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $themePath ?>/css/typography.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $themePath ?>/css/form.css" />
 		<link rel="stylesheet" type="text/css" href="sapphire/dev/install/install.css" />
 		<script src="sapphire/thirdparty/jquery/jquery.js"></script>
 	</head>
