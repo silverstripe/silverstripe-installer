@@ -149,7 +149,7 @@ Options:
 		<if>
 			<equals arg1="${archivetype}" arg2="tar.gz" casesensitive="false" trim="true"/>
 			<then>
-				<tar destfile="${basedir}/../${archivefilename}" compression="gzip">
+				<tar destfile="${basedir}/${archivefilename}" compression="gzip">
 					<fileset dir="${tmp}">
 						<include name="**/**" />
 					</fileset>
@@ -161,7 +161,7 @@ Options:
 		<if>
 			<equals arg1="${archivetype}" arg2="zip" casesensitive="false" trim="true"/>
 			<then>
-				<zip destfile="${basedir}/../${archivefilename}">
+				<zip destfile="${basedir}/${archivefilename}">
 					<fileset dir="${tmp}">
 						<include name="**/**" />
 					</fileset>
@@ -272,8 +272,10 @@ Options:
 			</else>
 		</if>
 
+		<delete file="${basedir}/${archivename}.${archivetype}" quiet="true" />
+
 		<phingCall target="archiveTask" />
-		<echo msg="Created archive in: ${basedir}/${archivename}" />
+		<echo msg="Created archive in: ${basedir}/${archivename}.${archivetype}" />
 
 	</target>
 
@@ -314,6 +316,31 @@ Options:
 	<target name="changelog" depends="createChangelogDefinitionsFile" if="basedir,changelogSort">
 		<sschanglog definitions="${changelog-definitions-file}" baseDir="${basedir}" sort="${changelogSort}"/>
 		<echo msg="${changelogOutput}"  />
+	</target>
+
+	<target name="upload-release"
+		description="Uploads archives previously created through 'ping archive' to a public webhost, and notifies a group of people of the new release. Requires working public key auth on the release destination.">
+		<if>
+			<not><isset property="version"/></not>
+			<then><input propertyName="version" defaultValue="x.y.z" promptChar=":">Please choose a version</input></then>
+		</if>
+
+		<property name="release_dest" value="qa-servers@homer:/sites/ssorg-v2/www/assets/releases/" />
+		<property name="release_url" value="http://silverstripe.org/assets/releases/" />
+		<property name="release_notify_list" value="all@silverstripe.com,everyone@silverstripe.com.au" />
+	
+		<exec command="scp -P 2222 SilverStripe-v${version}.tar.gz ${release_dest}" checkreturn="true" logoutput="true" />
+
+		<echo msg="Release uploaded to ${release_url}SilverStripe-v${version}.tar.gz" />
+
+		<mail from="reports@silverstripe.com" tolist="${release_notify_list}" subject="SilverStripe ${version} has been uploaded">A new SilverStripe release is ready, and although it hasn't been publicly announced yet, is available at the following locations:
+			
+${release_url}SilverStripe-v${version}.tar.gz
+
+Thanks,
+Your friendly automated release script.
+		</mail>
+
 	</target>
 
 </project>
