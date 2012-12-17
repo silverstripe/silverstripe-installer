@@ -158,12 +158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverstripe/sapphire",
-                "reference": "0d37cd3e69efd590f18901a426bd0b47a671929f"
+                "reference": "3.1.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/silverstripe/sapphire/archive/0d37cd3e69efd590f18901a426bd0b47a671929f.zip",
-                "reference": "0d37cd3e69efd590f18901a426bd0b47a671929f",
+                "url": "https://github.com/silverstripe/sapphire/archive/3.1.0-beta1.zip",
+                "reference": "3.1.0-beta1",
                 "shasum": ""
             },
             "require": {
