@@ -914,6 +914,7 @@ class Installer extends InstallRequirements {
 <html>
 	<head>
 		<title>Installing SilverStripe...</title>
+		
 		<link rel="stylesheet" type="text/css" href="<?php echo $themePath ?>/css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo $themePath ?>/css/typography.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo $themePath ?>/css/form.css" />
