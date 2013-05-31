@@ -3,20 +3,17 @@
 	"description": "The SilverStripe Framework Installer",
 	"require": {
 		"php": ">=5.3.2",
-		"silverstripe/cms": "dev-master",
-		"silverstripe/framework": "dev-master",
+		"silverstripe/cms": "self.version",
+		"silverstripe/framework": "self.version",
 		"silverstripe-themes/simple": "*"
 	},
-	"require-dev": {
-		"silverstripe/docsviewer": "*",
-		"silverstripe/behat-extension": "*",
-		"silverstripe/buildtools": "*",
-		"phpunit/phpunit": "3.7.*"
-	},
-		"extra": {
+	"extra": {
 		"branch-alias": {
-			"dev-master": "3.2.x-dev"
-		}
+		"dev-master": "3.2.x-dev"
+	},
+	"scripts": {
+		"post-install-cmd": "php ./framework/cli-script.php dev/build",
+		"post-update-cmd": "php ./framework/cli-script.php dev/build"
 	},
 	"minimum-stability": "dev"
 }
