@@ -9,7 +9,8 @@
 	},
 	"extra": {
 		"branch-alias": {
-		"dev-master": "3.2.x-dev"
+			"dev-master": "3.2.x-dev"
+		}
 	},
 	"scripts": {
 		"post-install-cmd": "php ./framework/cli-script.php dev/build",
