@@ -9,7 +9,7 @@ default:
     SilverStripe\BehatExtension\MinkExtension:
       # Adjust "base_url" to your own website URL.
       # Can be set via environment variables or _ss_environment.php/$_FILE_TO_URL_MAPPING as well.
-      base_url:  http://localhost:8000
+      # base_url:  http://localhost/
       files_path: %behat.paths.base%/framework/tests/behat/features/files/
       default_session: selenium2
       javascript_session: selenium2
