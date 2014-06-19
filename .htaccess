@@ -28,10 +28,9 @@ ErrorDocument 500 /assets/error-500.html
 	RewriteRule silverstripe-cache(/|$) - [F,L,NC]
 	RewriteRule composer\.(json|lock) - [F,L,NC]
 
-	RewriteCond %{REQUEST_URI} ^(.*)$
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_URI} !\.php$
-	RewriteRule .* framework/main.php?url=%1 [QSA]
+	RewriteRule (.*) framework/main.php?url=$1 [QSA]
 
 	RewriteCond %{REQUEST_URI} ^(.*)/framework/main.php$
 	RewriteCond %{REQUEST_FILENAME} !-f
