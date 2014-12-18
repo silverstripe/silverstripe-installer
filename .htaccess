@@ -28,7 +28,8 @@ ErrorDocument 500 /assets/error-500.html
 	RewriteEngine On
 	
 	# Enable HTTP Basic authentication workaround for PHP running in CGI mode
-	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+	RewriteCond %{HTTP:Authorization} ^(.+)$
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 	# Deny access to potentially sensitive files and folders
 	RewriteRule ^vendor(/|$) - [F,L,NC]
