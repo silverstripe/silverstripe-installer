@@ -7,10 +7,13 @@
 		"silverstripe/framework": "self.version",
 		"silverstripe-themes/blackcandy": "2.4.*"
 	},
+	"require-dev": {
+		"phpunit/PHPUnit": "~3.7@stable"
+	},
 	"minimum-stability": "dev",
 	"extra": {
 		"installer-paths": {
 			"sapphire": ["silverstripe/framework"]
-}
+		}
 	}
 }
