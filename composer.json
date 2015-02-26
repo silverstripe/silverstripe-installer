@@ -7,8 +7,11 @@
 		"silverstripe/framework": "self.version",
 		"silverstripe-themes/simple": "*"
 	},
+	"require-dev": {
+		"phpunit/PHPUnit": "~3.7@stable"
+	},
 	"config": {
-		"process-timeout": 600	
+		"process-timeout": 600
 	},
 	"minimum-stability": "dev"
 }
