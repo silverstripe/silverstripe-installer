@@ -27,7 +27,7 @@ ErrorDocument 500 /assets/error-500.html
 	# Ensure that X-Forwarded-Host is only allowed to determine the request
 	# hostname for servers ips defined by SS_TRUSTED_PROXY_IPS in your _ss_environment.php
 	# Note that in a future release this setting will be always on.
-	#SetEnv BlockUntrustedProxyHeaders true
+	SetEnv BlockUntrustedIPs true
 </IfModule>
 
 <IfModule mod_rewrite.c>
