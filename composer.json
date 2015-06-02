@@ -15,5 +15,8 @@
 			"3.x-dev": "3.2.x-dev"
 		}
 	},
+	"config": {
+		"process-timeout": 600
+	},
 	"minimum-stability": "dev"
 }

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
-# phing installation
-sudo pear channel-discover pear.phing.info
-sudo pear install phing/phing
-sudo pear install pear/VersionControl_Git-0.4.4
+Phing build tooling for SilverStripe releases (see phing.info).
+Install through "pear channel-discover pear.phing.info && pear install phing/phing".
+Most tooling is placed in a separate module, install with "composer require silverstripe/buildtools".
+It is safe to remove this file for normal website operation.
 -->
 
 <project name="silverstripe-installer" default="help" phingVersion="2.4.5">
 
-	<!-- Install with "composer require silverstripe/buildtools" -->
 	<import file="buildtools/build.xml" optional="true" />
 
 	<property name="basedir" value="." override="true" />
