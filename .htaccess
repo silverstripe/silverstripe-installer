@@ -13,6 +13,12 @@
 	Deny from all
 </Files>
 
+# Deny access to README.md
+<Files README.md>
+	Order deny,allow
+	Deny from all
+</Files>
+
 # Deny access to YAML configuration files which might include sensitive information
 <Files ~ "\.ya?ml$">
 	Order allow,deny
