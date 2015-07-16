@@ -13,6 +13,8 @@
 	More information:
 	- http://www.phpunit.de/manual/current/en/textui.html
 	- http://doc.silverstripe.org/framework/en/topics/testing/#configuration
+
+	It is safe to remove this file for normal website operation.
 -->
 <phpunit bootstrap="framework/tests/bootstrap.php" colors="true">
 

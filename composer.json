@@ -7,10 +7,16 @@
 		"silverstripe/framework": "self.version",
 		"silverstripe-themes/simple": "*"
 	},
+	"require-dev": {
+		"phpunit/PHPUnit": "~3.7@stable"
+	},
 	"extra": {
 		"branch-alias": {
 			"dev-master": "4.0.x-dev"
 		}
+	},
+	"config": {
+		"process-timeout": 600
 	},
 	"minimum-stability": "dev"
 }

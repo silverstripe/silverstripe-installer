@@ -1,3 +1,7 @@
+# Behat integration test setup (see behat.org).
+# More information about running these tests can be found under
+# https://github.com/silverstripe-labs/silverstripe-behat-extension.
+# It is safe to remove this file for normal website operation.
 default:
   filters:
     tags: "~@todo"
