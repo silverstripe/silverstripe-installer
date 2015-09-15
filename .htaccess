@@ -1,5 +1,3 @@
-### SILVERSTRIPE START ###
-
 # Deny access to templates (but allow from localhost)
 <Files *.ss>
 	Order deny,allow
@@ -60,4 +58,3 @@ ErrorDocument 500 /assets/error-500.html
 	RewriteRule . %1/install.php? [R,L]
 
 </IfModule>
-### SILVERSTRIPE END ###
