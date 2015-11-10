@@ -6,9 +6,6 @@ _ss_environment.php
 
 # ignore build tools
 /tools/phing-metadata
-.buildpath
-.project
-.settings
-.idea
-.DS_Store
+
+# ignore composer vendor folder
 /vendor/
