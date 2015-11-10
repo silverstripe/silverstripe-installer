@@ -1,10 +1,14 @@
-assets/*
+# ignore cache folder
+/silverstripe-cache/
+
+# ignore all environment files
 _ss_environment.php
-tools/phing-metadata
-silverstripe-cache
+
+# ignore build tools
+/tools/phing-metadata
 .buildpath
 .project
 .settings
 .idea
 .DS_Store
-vendor/
+/vendor/
