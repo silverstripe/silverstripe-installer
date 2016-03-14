@@ -9,3 +9,6 @@ _ss_environment.php
 
 # ignore composer vendor folder
 /vendor/
+
+# create a global .gitignore to control your environment excludes
+# git config --global core.excludesfile ~/.gitignore_global
