@@ -23,6 +23,8 @@
 		<directory>cms/tests</directory>
 		<directory>framework/tests</directory>
 		<directory>framework/admin/tests</directory>
+		<directory>reports/tests</directory>
+		<directory>siteconfig/tests</directory>
 	</testsuite>
 	
 	<listeners>
