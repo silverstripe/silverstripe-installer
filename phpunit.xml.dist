@@ -22,6 +22,7 @@
 		<directory>mysite/tests</directory>
 		<directory>cms/tests</directory>
 		<directory>framework/tests</directory>
+		<directory>framework/admin/tests</directory>
 	</testsuite>
 	
 	<listeners>
