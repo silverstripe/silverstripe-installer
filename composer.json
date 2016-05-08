@@ -8,6 +8,7 @@
 		"silverstripe-themes/simple": "*"
 	},
 	"require-dev": {
+		"ext-tidy": "*",
 		"phpunit/PHPUnit": "~3.7@stable"
 	},
 	"config": {
