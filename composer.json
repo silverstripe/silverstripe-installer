@@ -10,7 +10,8 @@
 		"silverstripe-themes/simple": "3.1.*"
 	},
 	"require-dev": {
-		"phpunit/PHPUnit": "~3.7"
+		"ext-tidy": "*",
+		"phpunit/PHPUnit": "~3.7@stable"
 	},
 	"extra": {
 		"branch-alias": {
