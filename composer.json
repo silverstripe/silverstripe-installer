@@ -11,7 +11,6 @@
 		"silverstripe/asset-admin": "^1"
 	},
 	"require-dev": {
-		"ext-tidy": "*",
 		"phpunit/PHPUnit": "~4.8"
 	},
 	"extra": {
