@@ -2,7 +2,7 @@
 	"name": "silverstripe/installer",
 	"description": "The SilverStripe Framework Installer",
 	"require": {
-		"php": ">=5.3.3",
+		"php": ">=5.5.0",
 		"silverstripe/cms": "self.version",
 		"silverstripe/framework": "self.version",
 		"silverstripe/reports": "self.version",
