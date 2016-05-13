@@ -10,7 +10,6 @@
 		"silverstripe-themes/simple": "3.1.*"
 	},
 	"require-dev": {
-		"ext-tidy": "*",
 		"phpunit/PHPUnit": "~3.7@stable"
 	},
 	"config": {
