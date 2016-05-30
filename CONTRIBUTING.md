@@ -21,8 +21,8 @@ For submitting patches, please read our [guide to contributing code](http://doc.
  * [Forums](http://silverstripe.org/forums)
  * [Developer Mailinglist](https://groups.google.com/forum/#!forum/silverstripe-dev)
 
-## Licensing
+## Copyright
+ 
+**IMPORTANT: By supplying code to the SilverStripe core team in patches, tickets and pull requests, you agree to assign copyright of that code to SilverStripe Limited, on the condition that SilverStripe Limited releases that code under the BSD license.**
 
-By supplying code in issues and pull requests created on github.com and other collaboration tools
-related to the SilverStripe project, you agree that is can be used in distributions and derivative works of 
-SilverStripe CMS and associated modules, under the BSD license.
+We ask for this so that the ownership in the license is clear and unambiguous, and so that community involvement doesn't stop us from being able to continue supporting these projects. By releasing this code under a permissive license, this copyright assignment won't prevent you from using the code in any way you see fit.
