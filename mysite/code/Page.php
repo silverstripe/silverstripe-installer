@@ -1,4 +1,8 @@
 <?php
+
+use SilverStripe\CMS\Controllers\ContentController;
+use SilverStripe\CMS\Model\SiteTree;
+
 class Page extends SiteTree {
 
 	private static $db = array(
