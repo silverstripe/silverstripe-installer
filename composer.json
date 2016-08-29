@@ -8,7 +8,7 @@
 		"silverstripe/reports": "self.version",
 		"silverstripe/siteconfig": "self.version",
 		"silverstripe-themes/simple": "3.1.*",
-		"silverstripe/asset-admin": "^1"
+		"silverstripe/asset-admin": "1.0.x-dev"
 	},
 	"require-dev": {
 		"phpunit/PHPUnit": "~4.8"
