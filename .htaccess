@@ -40,6 +40,8 @@ ErrorDocument 500 /assets/error-500.html
 	SetEnv HTTP_MOD_REWRITE On
 	RewriteEngine On
 
+        RewriteRule \.git - [F]
+
 	# Enable HTTP Basic authentication workaround for PHP running in CGI mode
 	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 	
