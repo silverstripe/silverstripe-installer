@@ -7,9 +7,7 @@ After:
 # YAML configuration for SilverStripe
 # See http://doc.silverstripe.org/framework/en/topics/configuration
 # Caution: Indentation through two spaces, not tabs
-SSViewer:
+SilverStripe\View\SSViewer:
   themes:
     - 'simple'
     - '$default'
-Debug:
-  friendly_error_httpcode: true
