@@ -3,20 +3,15 @@
 	"description": "The SilverStripe Framework Installer",
 	"require": {
 		"php": ">=5.5.0",
-		"silverstripe/cms": "4.0.x-dev",
-		"silverstripe/framework": "4.0.x-dev",
-		"silverstripe/reports": "4.0.x-dev",
-		"silverstripe/siteconfig": "4.0.x-dev",
+		"silverstripe/cms": "~4.0.0-alpha2",
+		"silverstripe/framework": "~4.0.0-alpha2",
+		"silverstripe/reports": "~4.0.0-alpha2",
+		"silverstripe/siteconfig": "~4.0.0-alpha2",
 		"silverstripe-themes/simple": "~3.2.0",
-		"silverstripe/asset-admin": "1.0.x-dev"
+		"silverstripe/asset-admin": "~1.0.0-alpha2"
 	},
 	"require-dev": {
 		"phpunit/PHPUnit": "~4.8"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "4.0.x-dev"
-		}
 	},
 	"config": {
 		"process-timeout": 600
