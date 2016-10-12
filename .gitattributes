@@ -1,4 +1,5 @@
 .gitattributes export-ignore
+.cow.json export-ignore
 behat.yml export-ignore
 build.properties.default export-ignore
 build.xml export-ignore

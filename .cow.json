@@ -1,0 +1,15 @@
+{
+  "github-slug": "silverstripe/silverstripe-installer",
+  "changelog-holder": "silverstripe/framework",
+  "changelog-path": "docs/en/04_Changelogs/{stability}/{version}.md",
+  "child-stability-inherit": true,
+  "dependency-constraint": "loose",
+  "vendors": [
+    "silverstripe"
+  ],
+  "tests": [
+    "vendor/bin/phpunit framework/admin/tests",
+    "vendor/bin/phpunit framework/tests",
+    "vendor/bin/phpunit cms/tests"
+  ]
+}
