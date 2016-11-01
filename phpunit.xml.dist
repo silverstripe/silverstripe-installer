@@ -26,7 +26,7 @@
 	</testsuite>
 
 	<listeners>
-		<listener class="SilverStripe\Dev\TestListener" file="framework/Dev/TestListener.php" />
+		<listener class="SilverStripe\Dev\TestListener" file="framework/src/Dev/TestListener.php" />
 	</listeners>
 
 	<groups>
