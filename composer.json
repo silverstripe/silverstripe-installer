@@ -8,7 +8,8 @@
 		"silverstripe/reports": "4.0.x-dev",
 		"silverstripe/siteconfig": "4.0.x-dev",
 		"silverstripe-themes/simple": "~3.2.0",
-		"silverstripe/asset-admin": "1.0.x-dev"
+		"silverstripe/asset-admin": "1.0.x-dev",
+		"silverstripe/graphql": "0.2.x-dev"
 	},
 	"require-dev": {
 		"phpunit/PHPUnit": "~4.8"
