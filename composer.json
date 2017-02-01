@@ -9,6 +9,9 @@
 	},
 	"minimum-stability": "dev",
 	"extra": {
+		"branch-alias": {
+			"dev-post-2.4": "2.5.x-dev"
+		},
 		"installer-paths": {
 			"sapphire": ["silverstripe/framework"]
 }
