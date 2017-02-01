@@ -1,8 +1,8 @@
 # ignore cache folder
 /silverstripe-cache/
 
-# ignore all environment files
-_ss_environment.php
+# ignore .env file
+/.env
 
 # ignore build tools
 /tools/phing-metadata
