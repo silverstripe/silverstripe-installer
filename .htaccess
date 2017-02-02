@@ -35,6 +35,7 @@ ErrorDocument 500 /assets/error-500.html
 	# Turn off index.php handling requests to the homepage fixes issue in apache >=2.4
 	<IfModule mod_dir.c>
 		DirectoryIndex disabled
+		DirectorySlash Off
 	</IfModule>
 
 	SetEnv HTTP_MOD_REWRITE On
@@ -42,18 +43,18 @@ ErrorDocument 500 /assets/error-500.html
 
 	# Enable HTTP Basic authentication workaround for PHP running in CGI mode
 	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-	
+
 	# Deny access to potentially sensitive files and folders
 	RewriteRule ^vendor(/|$) - [F,L,NC]
 	RewriteRule silverstripe-cache(/|$) - [F,L,NC]
 	RewriteRule composer\.(json|lock) - [F,L,NC]
-	
+
 	# Process through SilverStripe if no file with the requested name exists.
 	# Pass through the original path as a query parameter, and retain the existing parameters.
 	RewriteCond %{REQUEST_URI} ^(.*)$
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule .* framework/main.php?url=%1 [QSA]
-	
+
 	# If framework isn't in a subdirectory, rewrite to installer
 	RewriteCond %{REQUEST_URI} ^(.*)/framework/main.php$
 	RewriteCond %{REQUEST_FILENAME} !-f
