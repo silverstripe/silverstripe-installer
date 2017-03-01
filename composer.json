@@ -1,27 +1,27 @@
 {
-	"name": "silverstripe/installer",
-	"description": "The SilverStripe Framework Installer",
-	"require": {
-		"php": ">=5.5.0",
-		"silverstripe/cms": "4.0.x-dev",
-		"silverstripe/framework": "4.0.x-dev",
-		"silverstripe/reports": "4.0.x-dev",
-		"silverstripe/siteconfig": "4.0.x-dev",
-		"silverstripe-themes/simple": "~3.2.0",
-		"silverstripe/asset-admin": "1.0.x-dev",
-		"silverstripe/graphql": "0.2.x-dev"
-	},
-	"require-dev": {
-		"phpunit/PHPUnit": "~4.8"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "4.0.x-dev"
-		}
-	},
-	"config": {
-		"process-timeout": 600
-	},
-	"prefer-stable": true,
-	"minimum-stability": "dev"
+    "name": "silverstripe/installer",
+    "description": "The SilverStripe Framework Installer",
+    "require": {
+        "php": ">=5.5.0",
+        "silverstripe/cms": "~4.0.0@alpha",
+        "silverstripe/framework": "~4.0.0@alpha",
+        "silverstripe/reports": "~4.0.0@alpha",
+        "silverstripe/siteconfig": "~4.0.0@alpha",
+        "silverstripe-themes/simple": "~3.2.0",
+        "silverstripe/asset-admin": "~1.0.0@alpha",
+        "silverstripe/graphql": "~0.2.1@stable"
+    },
+    "require-dev": {
+        "phpunit/PHPUnit": "~4.8"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0.x-dev"
+        }
+    },
+    "config": {
+        "process-timeout": 600
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
 }
