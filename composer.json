@@ -5,6 +5,7 @@
 		"php": ">=5.5.0",
 		"silverstripe/cms": "4.0.x-dev",
 		"silverstripe/framework": "4.0.x-dev",
+		"silverstripe/admin": "1.0.x-dev",
 		"silverstripe/reports": "4.0.x-dev",
 		"silverstripe/siteconfig": "4.0.x-dev",
 		"silverstripe-themes/simple": "~3.2.0",
