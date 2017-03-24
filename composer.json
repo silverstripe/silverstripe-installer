@@ -2,7 +2,7 @@
 	"name": "silverstripe/installer",
 	"description": "The SilverStripe Framework Installer",
 	"require": {
-		"php": ">=5.5.0",
+		"php": ">=5.6.0",
 		"silverstripe/cms": "4.0.x-dev",
 		"silverstripe/framework": "4.0.x-dev",
 		"silverstripe/config": "1.0.x-dev",
@@ -15,7 +15,7 @@
 		"silverstripe/graphql": "0.2.x-dev"
 	},
 	"require-dev": {
-		"phpunit/PHPUnit": "~4.8"
+		"phpunit/PHPUnit": "^5.7"
 	},
 	"extra": {
 		"branch-alias": {
