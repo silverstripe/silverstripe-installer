@@ -6,6 +6,7 @@
     "silverstripe/admin": "1.0.x-dev",
     "silverstripe/asset-admin": "1.0.x-dev",
     "silverstripe/assets": "1.0.x-dev",
+    "silverstripe/campaign-admin": "1.0.x-dev",
     "silverstripe/cms": "4.0.x-dev",
     "silverstripe/config": "1.0.x-dev",
     "silverstripe/framework": "4.0.x-dev",
