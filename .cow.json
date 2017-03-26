@@ -3,7 +3,7 @@
   "changelog-holder": "silverstripe/framework",
   "changelog-path": "docs/en/04_Changelogs/{stability}/{version}.md",
   "child-stability-inherit": true,
-  "dependency-constraint": "loose",
+  "dependency-constraint": "exact",
   "vendors": [
     "silverstripe"
   ],
