@@ -8,7 +8,6 @@
 	</testsuite>
 
 	<listeners>
-		<listener class="SS_TestListener" file="framework/dev/TestListener.php" />
     	<listener class="TeamCityListener" file="framework/dev/TeamCityListener.php"/>
 	</listeners>
 

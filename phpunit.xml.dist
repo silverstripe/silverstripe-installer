@@ -22,12 +22,7 @@
 		<directory>mysite/tests</directory>
 		<directory>cms/tests</directory>
 		<directory>framework/tests</directory>
-		<directory>framework/admin/tests</directory>
 	</testsuite>
-
-	<listeners>
-		<listener class="SilverStripe\Dev\TestListener" file="framework/src/Dev/TestListener.php" />
-	</listeners>
 
 	<groups>
 		<exclude>
