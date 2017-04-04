@@ -1,0 +1,57 @@
+language: php
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - tidy
+
+env:
+  global:
+    - COMPOSER_ROOT_VERSION=4.0.x-dev
+    - DB=MYSQL
+
+matrix:
+  fast_finish: true
+  include:
+    # Core php tests
+    - php: 5.6
+      env:
+        - PHPUNIT_TEST=core
+    - php: 7.1.2
+      env:
+        - PHPUNIT_TEST=core
+        - PDO=1
+    # admin php tests
+    - php: 5.6
+      env:
+        - PHPUNIT_TEST=admin
+    - php: 7.1.2
+      env:
+        - PHPUNIT_TEST=admin
+        - PDO=1
+    # @todo behat tests
+
+before_script:
+# Init PHP
+  - export CORE_RELEASE=$TRAVIS_BRANCH
+  - printf "\n" | pecl install imagick
+  - phpenv rehash
+  - phpenv config-rm xdebug.ini
+  - echo 'memory_limit = 2048M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+# Install composer dependencies
+  - composer install --prefer-dist
+  - composer require silverstripe/framework 4.0.x-dev silverstripe/config:1.0.x-dev embed/embed ^3.0 silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev --prefer-dist
+  - if [[ $PHPUNIT_TEST == admin ]]; then composer require silverstripe/cms:4.0.x-dev silverstripe/asset-admin:1.0.x-dev silverstripe/campaign-admin:1.0.x-dev silverstripe/siteconfig:4.0.x-dev silverstripe/reports:4.0.x-dev --prefer-dist; fi
+
+# Bootstrap dependencies
+  - if [[ $PHPUNIT_TEST == admin ]]; then php ./cms/tests/bootstrap/mysite.php; fi
+
+script:
+  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite $PHPUNIT_TEST; fi
+
+notifications:
+  slack: silverstripeltd:Cls1xnypKBLFhv0YIRtNLzlQ
+

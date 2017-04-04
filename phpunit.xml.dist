@@ -24,6 +24,24 @@
 		<directory>framework/tests</directory>
 	</testsuite>
 
+    <!-- core components -->
+    <testsuite name="core">
+		<directory>framework/tests/php/</directory>
+		<directory>silverstripe-assets/tests/php/</directory>
+        <directory>versioned/tests/php/</directory>
+    </testsuite>
+
+    <!-- admin components -->
+    <testsuite name="admin">
+        <directory>cms/tests/</directory>
+        <directory>silverstripe-admin/tests/php/</directory>
+        <directory>campaign-admin/tests/php/</directory>
+        <directory>asset-admin/tests/php/</directory>
+        <directory>graphql/tests/</directory>
+        <directory>siteconfig/tests/</directory>
+        <directory>reports/tests/</directory>
+    </testsuite>
+
 	<groups>
 		<exclude>
 			<group>sanitychecks</group>
