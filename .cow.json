@@ -8,8 +8,7 @@
     "silverstripe"
   ],
   "tests": [
-    "vendor/bin/phpunit framework/admin/tests",
-    "vendor/bin/phpunit framework/tests",
+    "vendor/bin/phpunit framework/tests/php",
     "vendor/bin/phpunit cms/tests"
   ]
 }
