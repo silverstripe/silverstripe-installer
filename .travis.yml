@@ -43,7 +43,7 @@ before_script:
 
 # Install composer dependencies
   - composer install --prefer-dist
-  - composer require silverstripe/framework 4.0.x-dev silverstripe/config:1.0.x-dev embed/embed ^3.0 silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev --prefer-dist
+  - composer require silverstripe/framework:4.0.x-dev silverstripe/config:1.0.x-dev embed/embed:^3.0 silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev --prefer-dist
   - if [[ $PHPUNIT_TEST == admin ]]; then composer require silverstripe/cms:4.0.x-dev silverstripe/asset-admin:1.0.x-dev silverstripe/campaign-admin:1.0.x-dev silverstripe/siteconfig:4.0.x-dev silverstripe/reports:4.0.x-dev --prefer-dist; fi
 
 # Bootstrap dependencies
