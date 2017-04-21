@@ -3,21 +3,12 @@
 # https://github.com/silverstripe-labs/silverstripe-behat-extension.
 # It is safe to remove this file for normal website operation.
 default:
-  filters:
-    tags: "~@todo"
-  formatter:
-    name: pretty
-
+  suites: []
   extensions:
-
     SilverStripe\BehatExtension\MinkExtension:
-      # Adjust "base_url" to your own website URL.
-      # Can be set via environment variables or _ss_environment.php/$_FILE_TO_URL_MAPPING as well.
-      # base_url:  http://localhost/
-      files_path: %behat.paths.base%/framework/tests/behat/features/files/
       default_session: selenium2
       javascript_session: selenium2
       selenium2:
         browser: firefox
-
-    SilverStripe\BehatExtension\Extension:  ~
+    SilverStripe\BehatExtension\Extension:
+      screenshot_path: %paths.base%/artifacts/screenshots
