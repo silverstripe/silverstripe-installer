@@ -62,9 +62,11 @@ before_script:
 # Bootstrap dependencies
   - if [[ $PHPUNIT_TEST == admin ]]; then php ./cms/tests/bootstrap/mysite.php; fi
 
+# Add behat dependencies
+  - if [[ $BEHAT_TEST ]]; then composer require silverstripe/behat-extension:^2.3.7 silverstripe/serve:dev-master; fi
 # Start behat services
   - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
-  -  if [[ $BEHAT_TEST ]]; then (vendor/bin/selenium-server-standalone > selenium.log 2>&1 &); fi
+  - if [[ $BEHAT_TEST ]]; then (vendor/bin/selenium-server-standalone > selenium.log 2>&1 &); fi
   - if [[ $BEHAT_TEST == framework ]]; then (vendor/bin/serve --bootstrap-file framework/tests/behat/serve-bootstrap.php &> serve.log &); fi
   - if [[ $BEHAT_TEST == cms || $BEHAT_TEST == asset-admin ]]; then (vendor/bin/serve --bootstrap-file cms/tests/behat/serve-bootstrap.php &> serve.log &); fi
 
