@@ -9,5 +9,8 @@
  ************************************************************************************
  ************************************************************************************/
 
-if (!file_exists('framework') || !file_exists('framework/_config.php')) include "install-frameworkmissing.html";
-else include('./framework/dev/install/install.php');
+if (!file_exists('framework') || !file_exists('framework/_config.php')) {
+    include 'install-frameworkmissing.html';
+} else {
+    include './framework/dev/install/install.php';
+}
