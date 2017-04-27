@@ -38,10 +38,11 @@ matrix:
     - php: 7.1.2
       env:
         - BEHAT_TEST=cms
-    - php: 7.1.2
-      env:
-        - BEHAT_TEST=asset-admin
-    # TO-DO: add siteconfig test after it has been ported away from travis-support
+    # TO-DO: add siteconfig test after asset-admin has been ported away from travis-support
+    # - php: 7.1.2
+    #   env:
+    #     - BEHAT_TEST=asset-admin
+    # # TO-DO: add siteconfig test after it has been ported away from travis-support
     # - php: 7.1.2
     #   env:
     #     - BEHAT_TEST=siteconfig
@@ -72,9 +73,9 @@ before_script:
 
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite $PHPUNIT_TEST; fi
-  - if [[ $BEHAT_TEST == framework ]]; then vendor/bin/behat --config tests/behat/config.yml .; fi
-  - if [[ $BEHAT_TEST == cms ]]; then vendor/bin/behat @cms --config tests/behat/cms-config.yml; fi
-  - if [[ $BEHAT_TEST == asset-admin ]]; then vendor/bin/behat @asset-admin --config asset-admin/behat.yml; fi
+  - if [[ $BEHAT_TEST == framework ]]; then vendor/bin/behat @framework --config framework/tests/behat/config.yml .; fi
+  - if [[ $BEHAT_TEST == cms ]]; then vendor/bin/behat @cms --config framework/tests/behat/cms-config.yml; fi
+#  - if [[ $BEHAT_TEST == asset-admin ]]; then vendor/bin/behat @asset-admin --config asset-admin/behat.yml; fi
 
 notifications:
   slack: silverstripeltd:Cls1xnypKBLFhv0YIRtNLzlQ
