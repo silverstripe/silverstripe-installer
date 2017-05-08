@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruleset name="SS3">
+    <description>Coding standard for SilverStripe 3.x</description>
+
+    <!-- Don't sniff third party libraries -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/thirdparty/*</exclude-pattern>
+
+    <!-- Show progress and output sniff names on violation, and add colours -->
+    <arg value="sp"/>
+    <arg name="colors"/>
+
+    <!-- Use PSR-2 as a base standard -->
+    <rule ref="PSR2">
+        <!-- Allow classes to not declare a namespace -->
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+
+        <!-- Allow underscores in class names -->
+        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+
+        <!-- Allow non camel cased method names -->
+        <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+    </rule>
+</ruleset>
