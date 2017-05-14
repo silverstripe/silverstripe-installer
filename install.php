@@ -10,7 +10,7 @@
  ************************************************************************************/
 
 if (!file_exists('framework') || !file_exists('framework/_config.php')) {
-	include "install-frameworkmissing.html";
+    include "install-frameworkmissing.html";
 } else {
-	include('./framework/src/Dev/Install/install.php');
+    include('./framework/src/Dev/Install/install.php');
 }
