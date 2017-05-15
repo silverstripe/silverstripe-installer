@@ -10,7 +10,6 @@ addons:
 env:
   global:
     - COMPOSER_ROOT_VERSION=4.0.x-dev
-    - DB=MYSQL
 
 matrix:
   fast_finish: true
@@ -19,18 +18,38 @@ matrix:
     - php: 5.6
       env:
         - PHPUNIT_TEST=core
+        - DB=MYSQL
+    - php: 7.0
+      env:
+        - PHPUNIT_TEST=core
+        - DB=MYSQL
+        - PDO=1
     - php: 7.1.2
       env:
         - PHPUNIT_TEST=core
-        - PDO=1
+        - DB=PGSQL
+    - php: 7.1.2
+      env:
+        - PHPUNIT_TEST=core
+        - DB=SQLITE
     # admin php tests
     - php: 5.6
       env:
         - PHPUNIT_TEST=admin
+        - DB=MYSQL
+    - php: 7.0
+      env:
+        - PHPUNIT_TEST=admin
+        - DB=MYSQL
+        - PDO=1
     - php: 7.1.2
       env:
         - PHPUNIT_TEST=admin
-        - PDO=1
+        - DB=PGSQL
+    - php: 7.1.2
+      env:
+        - PHPUNIT_TEST=admin
+        - DB=SQLITE
     # @todo behat tests
 
 before_script:
@@ -43,8 +62,10 @@ before_script:
 
 # Install composer dependencies
   - composer install --prefer-dist
-  - composer require silverstripe/framework 4.0.x-dev silverstripe/config:1.0.x-dev embed/embed ^3.0 silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev --prefer-dist
+  - composer require silverstripe/framework:4.0.x-dev silverstripe/config:1.0.x-dev embed/embed:^3.0 silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev --prefer-dist
   - if [[ $PHPUNIT_TEST == admin ]]; then composer require silverstripe/cms:4.0.x-dev silverstripe/asset-admin:1.0.x-dev silverstripe/campaign-admin:1.0.x-dev silverstripe/siteconfig:4.0.x-dev silverstripe/reports:4.0.x-dev --prefer-dist; fi
+  - "if [ \"$DB\" = \"PGSQL\" ]; then composer require silverstripe/postgresql:2.0.x-dev --prefer-dist; fi"
+  - "if [ \"$DB\" = \"SQLITE\" ]; then composer require silverstripe/sqlite3:2.0.x-dev --prefer-dist; fi"
 
 # Bootstrap dependencies
   - if [[ $PHPUNIT_TEST == admin ]]; then php ./cms/tests/bootstrap/mysite.php; fi
