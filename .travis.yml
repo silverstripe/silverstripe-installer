@@ -31,7 +31,21 @@ matrix:
       env:
         - PHPUNIT_TEST=admin
         - PDO=1
-    # @todo behat tests
+    # behat tests
+    - php: 7.1.2
+      env:
+        - BEHAT_TEST=framework
+    - php: 7.1.2
+      env:
+        - BEHAT_TEST=cms
+    # TO-DO: add siteconfig test after asset-admin has been ported away from travis-support
+    # - php: 7.1.2
+    #   env:
+    #     - BEHAT_TEST=asset-admin
+    # # TO-DO: add siteconfig test after it has been ported away from travis-support
+    # - php: 7.1.2
+    #   env:
+    #     - BEHAT_TEST=siteconfig
 
 before_script:
 # Init PHP
@@ -49,8 +63,19 @@ before_script:
 # Bootstrap dependencies
   - if [[ $PHPUNIT_TEST == admin ]]; then php ./cms/tests/bootstrap/mysite.php; fi
 
+# Add behat dependencies
+  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^2.3.7 silverstripe/serve:dev-master && composer update; fi
+# Start behat services
+  - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
+  - if [[ $BEHAT_TEST ]]; then (vendor/bin/selenium-server-standalone > selenium.log 2>&1 &); fi
+  - if [[ $BEHAT_TEST == framework ]]; then (vendor/bin/serve --bootstrap-file framework/tests/behat/serve-bootstrap.php &> serve.log &); fi
+  - if [[ $BEHAT_TEST == cms || $BEHAT_TEST == asset-admin ]]; then (vendor/bin/serve --bootstrap-file cms/tests/behat/serve-bootstrap.php &> serve.log &); fi
+
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite $PHPUNIT_TEST; fi
+  - if [[ $BEHAT_TEST == framework ]]; then vendor/bin/behat @framework --config framework/tests/behat/config.yml .; fi
+  - if [[ $BEHAT_TEST == cms ]]; then vendor/bin/behat @cms --config framework/tests/behat/cms-config.yml; fi
+#  - if [[ $BEHAT_TEST == asset-admin ]]; then vendor/bin/behat @asset-admin --config asset-admin/behat.yml; fi
 
 notifications:
   slack: silverstripeltd:Cls1xnypKBLFhv0YIRtNLzlQ
