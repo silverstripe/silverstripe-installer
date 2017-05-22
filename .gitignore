@@ -9,3 +9,16 @@
 
 # ignore composer vendor folder
 /vendor/
+
+# ignore default modules from composer
+/asset-admin/
+/campaign-admin/
+/cms/
+/framework/
+/graphql/
+/reports/
+/silverstripe-admin/
+/silverstripe-assets/
+/siteconfig/
+/themes/simple/
+/versioned/
