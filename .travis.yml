@@ -3,14 +3,17 @@ language: php
 sudo: false
 
 addons:
+  firefox: "31.0"
   apt:
     packages:
       - tidy
 
 env:
   global:
-    - COMPOSER_ROOT_VERSION=4.0.x-dev
-    - DB=MYSQL
+    - TRAVIS_NODE_VERSION="6"
+    - COMPOSER_ROOT_VERSION="4.0.x-dev"
+    - DISPLAY=":99"
+    - XVFBARGS=":99 -ac -screen 0 1024x768x16"
 
 matrix:
   fast_finish: true
@@ -19,19 +22,35 @@ matrix:
     - php: 5.6
       env:
         - PHPUNIT_TEST=core
+        - DB=MYSQL
+        - PDO=1
     - php: 7.1.2
       env:
         - PHPUNIT_TEST=core
-        - PDO=1
+        - DB=PGSQL
     # admin php tests
     - php: 5.6
       env:
         - PHPUNIT_TEST=admin
+        - DB=PGSQL
     - php: 7.1.2
       env:
         - PHPUNIT_TEST=admin
+        - DB=MYSQL
         - PDO=1
-    # @todo behat tests
+    # behat tests
+    - php: 5.6
+      env:
+        - BEHAT_TEST="@framework"
+        - DB=MYSQL
+    - php: 5.6
+      env:
+        - BEHAT_TEST="@cms"
+        - DB=MYSQL
+    - php: 5.6
+      env:
+        - BEHAT_TEST="@asset-admin"
+        - DB=MYSQL
 
 before_script:
 # Init PHP
@@ -41,16 +60,34 @@ before_script:
   - phpenv config-rm xdebug.ini
   - echo 'memory_limit = 2048M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
-# Install composer dependencies
-  - composer install --prefer-dist
-  - composer require silverstripe/framework 4.0.x-dev silverstripe/config:1.0.x-dev embed/embed ^3.0 silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev --prefer-dist
-  - if [[ $PHPUNIT_TEST == admin ]]; then composer require silverstripe/cms:4.0.x-dev silverstripe/asset-admin:1.0.x-dev silverstripe/campaign-admin:1.0.x-dev silverstripe/siteconfig:4.0.x-dev silverstripe/reports:4.0.x-dev --prefer-dist; fi
+# Temporarily update to 1.5.x-dev of composer
+  - composer self-update --snapshot
 
-# Bootstrap dependencies
-  - if [[ $PHPUNIT_TEST == admin ]]; then php ./cms/tests/bootstrap/mysite.php; fi
+# Install composer dependencies
+  - composer validate
+  - composer install --prefer-dist
+  - composer require --no-update --prefer-dist symfony/config:^3.2 silverstripe/framework 4.0.x-dev silverstripe/config:1.0.x-dev embed/embed ^3.0 silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev silverstripe/cms:4.0.x-dev silverstripe/asset-admin:1.0.x-dev silverstripe/campaign-admin:1.0.x-dev silverstripe/siteconfig:4.0.x-dev silverstripe/reports:4.0.x-dev silverstripe/graphql:dev-master
+  - composer update
+  - if [[ $DB == PGSQL ]]; then composer require silverstripe/postgresql:2.0.x-dev --prefer-dist; fi
+  - if [[ $BEHAT_TEST ]]; then composer require silverstripe/behat-extension:^3 silverstripe/serve:dev-master se/selenium-server-standalone:2.41.0; fi;
+
+# Replace _config.php bootstrapping with test environment
+  - rm -rf ./mysite
+  - php ./cms/tests/bootstrap/mysite.php
+
+# Start behat services
+  - if [[ $BEHAT_TEST ]]; then echo 'SS_BASE_URL=http://localhost:8080/' >> .env; fi
+  - if [[ $BEHAT_TEST ]]; then mkdir artifacts; fi
+  - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
+  - if [[ $BEHAT_TEST ]]; then (vendor/bin/selenium-server-standalone > artifacts/selenium.log 2>&1 &); fi
+  - if [[ $BEHAT_TEST ]]; then (vendor/bin/serve --bootstrap-file cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); fi
 
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite $PHPUNIT_TEST; fi
+  - if [[ $BEHAT_TEST ]]; then vendor/bin/behat $BEHAT_TEST; fi
+
+after_failure:
+  - if [[ $BEHAT_TEST ]]; then php ./framework/tests/behat/travis-upload-artifacts.php --if-env BEHAT_TEST,ARTIFACTS_BUCKET,ARTIFACTS_KEY,ARTIFACTS_SECRET --target-path $TRAVIS_REPO_SLUG/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID --artifacts-base-url https://s3.amazonaws.com/$ARTIFACTS_BUCKET/ --artifacts-path ./artifacts/; fi
 
 notifications:
   slack: silverstripeltd:Cls1xnypKBLFhv0YIRtNLzlQ
