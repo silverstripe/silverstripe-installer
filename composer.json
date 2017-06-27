@@ -9,6 +9,7 @@
     "silverstripe/campaign-admin": "1.0.x-dev",
     "silverstripe/cms": "4.0.x-dev",
     "silverstripe/config": "1.0.x-dev",
+    "silverstripe/errorpage": "1.0.x-dev",
     "silverstripe/framework": "4.0.x-dev",
     "silverstripe/graphql": "0.2.x-dev",
     "silverstripe/reports": "4.0.x-dev",
