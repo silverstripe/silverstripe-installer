@@ -24,3 +24,6 @@ indent_style = space
 # https://github.com/npm/npm/pull/3180#issuecomment-16336516
 indent_size = 2
 indent_style = space
+
+[composer.json]
+indent_size = 4
