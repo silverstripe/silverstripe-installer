@@ -10,5 +10,8 @@
   "tests": [
     "vendor/bin/phpunit framework/tests/php",
     "vendor/bin/phpunit cms/tests"
+  ],
+  "exclude": [
+    "silverstripe/recipe-plugin"
   ]
 }
