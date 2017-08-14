@@ -13,5 +13,21 @@
   ],
   "exclude": [
     "silverstripe/recipe-plugin"
+  ],
+  "archives": [
+    {
+      "recipe": "silverstripe/recipe-core",
+      "files": [
+        "SilverStripe-framework-v{version}.zip",
+        "SilverStripe-framework-v{version}.tar.gz"
+      ]
+    },
+    {
+      "recipe": "silverstripe/installer",
+      "files": [
+        "SilverStripe-cms-v{version}.zip",
+        "SilverStripe-cms-v{version}.tar.gz"
+      ]
+    }
   ]
 }
