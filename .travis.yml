@@ -1,6 +1,10 @@
 language: php
 
-sudo: false
+dist: trusty
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
 
 addons:
   firefox: "31.0"
@@ -54,30 +58,21 @@ matrix:
 
 before_script:
 # Init PHP
-  - export CORE_RELEASE=$TRAVIS_BRANCH
   - printf "\n" | pecl install imagick
   - phpenv rehash
-  - phpenv config-rm xdebug.ini
+  - phpenv config-rm xdebug.ini || true
   - echo 'memory_limit = 2048M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-
-# Temporarily update to 1.5.x-dev of composer
-  - composer self-update --snapshot
 
 # Install composer dependencies
   - composer validate
-  - composer install --prefer-dist
-  - composer require --no-update --prefer-dist symfony/config:^3.2 silverstripe/framework 4.0.x-dev silverstripe/config:1.0.x-dev embed/embed ^3.0 silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev silverstripe/cms:4.0.x-dev silverstripe/asset-admin:1.0.x-dev silverstripe/campaign-admin:1.0.x-dev silverstripe/siteconfig:4.0.x-dev silverstripe/reports:4.0.x-dev silverstripe/graphql:dev-master
-  - composer update
-  - if [[ $DB == PGSQL ]]; then composer require silverstripe/postgresql:2.0.x-dev --prefer-dist; fi
-  - if [[ $BEHAT_TEST ]]; then composer require silverstripe/behat-extension:^3 silverstripe/serve:dev-master se/selenium-server-standalone:2.41.0; fi;
-
-# Replace _config.php bootstrapping with test environment
-  - rm -rf ./mysite
-  - php ./cms/tests/bootstrap/mysite.php
+  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
+  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^3 silverstripe/serve:dev-master se/selenium-server-standalone:2.41.0; fi;
+  - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
 # Start behat services
   - if [[ $BEHAT_TEST ]]; then echo 'SS_BASE_URL=http://localhost:8080/' >> .env; fi
   - if [[ $BEHAT_TEST ]]; then mkdir artifacts; fi
+  - if [[ $BEHAT_TEST ]]; then cp composer.lock artifacts/; fi
   - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
   - if [[ $BEHAT_TEST ]]; then (vendor/bin/selenium-server-standalone > artifacts/selenium.log 2>&1 &); fi
   - if [[ $BEHAT_TEST ]]; then (vendor/bin/serve --bootstrap-file cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); fi
@@ -91,4 +86,3 @@ after_failure:
 
 notifications:
   slack: silverstripeltd:Cls1xnypKBLFhv0YIRtNLzlQ
-
