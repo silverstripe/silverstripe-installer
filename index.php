@@ -56,4 +56,4 @@ if ($url && file_exists($fileName)) {
     return false;
 }
 
-require_once 'framework/main.php';
+require_once 'vendor/silverstripe/framework/main.php';
