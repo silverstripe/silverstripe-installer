@@ -9,8 +9,8 @@
  ************************************************************************************
  ************************************************************************************/
 
-if (!file_exists('framework') || !file_exists('framework/_config.php')) {
+if (!file_exists('vendor/silverstripe/framework') || !file_exists('vendor/silverstripe/framework/_config.php')) {
     include 'install-frameworkmissing.html';
 } else {
-    include './framework/src/Dev/Install/install.php';
+    include './vendor/silverstripe/framework/src/Dev/Install/install.php';
 }
