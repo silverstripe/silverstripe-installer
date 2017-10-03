@@ -51,18 +51,9 @@ $_GET['url'] = $_REQUEST['url'] = $url;
 
 $fileName = dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $url;
 
-/**
- * This code is a very simple wrapper for sending files
- * Very quickly pass through references to files
- */
+// Pass through references to existing files
 if ($url && file_exists($fileName)) {
-    $fileURL = (dirname($_SERVER['SCRIPT_NAME']) == '/' ? '' : dirname($_SERVER['SCRIPT_NAME'])) . '/' . $url;
-    if (isset($_SERVER['QUERY_STRING'])) {
-        $fileURL .= '?' . $_SERVER['QUERY_STRING'];
-    }
-    header($_SERVER['SERVER_PROTOCOL'] . ' 301 Moved Permanently');
-    header("Location: $fileURL");
-    die();
+    return false;
 }
 
-require_once 'framework/main.php';
+require_once 'vendor/silverstripe/framework/main.php';

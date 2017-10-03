@@ -16,30 +16,30 @@
 
 	It is safe to remove this file for normal website operation.
 -->
-<phpunit bootstrap="framework/tests/bootstrap.php" colors="true">
+<phpunit bootstrap="vendor/silverstripe/framework/tests/bootstrap.php" colors="true">
 
 	<testsuite name="Default">
 		<directory>mysite/tests</directory>
-		<directory>cms/tests</directory>
-		<directory>framework/tests</directory>
+		<directory>vendor/silverstripe/cms/tests/php</directory>
+		<directory>vendor/silverstripe/framework/tests/php</directory>
 	</testsuite>
 
     <!-- core components -->
     <testsuite name="core">
-		<directory>framework/tests/php/</directory>
-		<directory>silverstripe-assets/tests/php/</directory>
-        <directory>versioned/tests/php/</directory>
+		<directory>vendor/silverstripe/framework/tests/php/</directory>
+		<directory>vendor/silverstripe/assets/tests/php/</directory>
+        <directory>vendor/silverstripe/versioned/tests/php/</directory>
     </testsuite>
 
     <!-- admin components -->
     <testsuite name="admin">
-        <directory>cms/tests/</directory>
-        <directory>silverstripe-admin/tests/php/</directory>
-        <directory>campaign-admin/tests/php/</directory>
-        <directory>asset-admin/tests/php/</directory>
-        <directory>graphql/tests/</directory>
-        <directory>siteconfig/tests/</directory>
-        <directory>reports/tests/</directory>
+        <directory>vendor/silverstripe/cms/tests/</directory>
+        <directory>vendor/silverstripe/admin/tests/php/</directory>
+        <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
+        <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
+        <directory>vendor/silverstripe/graphql/tests/</directory>
+        <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
+        <directory>vendor/silverstripe/reports/tests/</directory>
     </testsuite>
 
 	<groups>
