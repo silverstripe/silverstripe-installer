@@ -15,11 +15,8 @@
         "project-files": [
             "assets/*",
             "mysite/_config/*",
-            "index.php",
-            "install.php",
             ".env.example",
-            "favicon.ico",
-            "install-frameworkmissing.html"
+            "favicon.ico"
         ],
         "branch-alias": {
             "4.x-dev": "4.0.x-dev",
