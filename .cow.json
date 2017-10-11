@@ -8,8 +8,8 @@
     "silverstripe"
   ],
   "tests": [
-    "vendor/bin/phpunit framework/tests/php",
-    "vendor/bin/phpunit cms/tests"
+    "vendor/bin/phpunit vendor/silverstripe/framework/tests/php",
+    "vendor/bin/phpunit vendor/silverstripe/cms/tests/php"
   ],
   "exclude": [
     "silverstripe/recipe-plugin"

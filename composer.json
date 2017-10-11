@@ -5,7 +5,7 @@
     "require": {
         "php": ">=5.6.0",
         "silverstripe/recipe-plugin": ">=0.1@dev <1.0",
-        "silverstripe/recipe-cms": "1.0.x-dev",
+        "silverstripe/recipe-cms": "1.1.x-dev",
         "silverstripe-themes/simple": "~3.2.0"
     },
     "require-dev": {
@@ -15,14 +15,10 @@
         "project-files": [
             "assets/*",
             "mysite/_config/*",
-            "index.php",
-            "install.php",
             ".env.example",
-            "favicon.ico",
-            "install-frameworkmissing.html"
+            "favicon.ico"
         ],
         "branch-alias": {
-            "4.x-dev": "4.0.x-dev",
             "dev-master": "5.x-dev"
         }
     },

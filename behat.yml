@@ -4,7 +4,7 @@
 # ========================================================================= #
 # composer require silverstripe/behat-extension:^3 silverstripe/serve:dev-master se/selenium-server-standalone:2.41.0
 # vendor/bin/selenium-server-standalone -Dwebdriver.firefox.bin="/Applications/Firefox31.app/Contents/MacOS/firefox-bin"
-# vendor/bin/serve --bootstrap-file cms/tests/behat/serve-bootstrap.php
+# vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php
 # vendor/bin/behat @<module>
 # ========================================================================= #
 default:
@@ -16,5 +16,6 @@ default:
       selenium2:
         browser: firefox
     SilverStripe\BehatExtension\Extension:
-      bootstrap_file: cms/tests/behat/serve-bootstrap.php
+      bootstrap_file: vendor/silverstripe/cms/tests/behat/serve-bootstrap.php
       screenshot_path: %paths.base%/artifacts/screenshots
+      retry_seconds: 4 # default is 2
