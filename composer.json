@@ -19,7 +19,7 @@
             "favicon.ico"
         ],
         "branch-alias": {
-            "4.x-dev": "4.0.x-dev",
+            "4.x-dev": "4.1.x-dev",
             "dev-master": "5.x-dev"
         }
     },
