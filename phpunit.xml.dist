@@ -1,7 +1,7 @@
 <!--
 	PHPUnit configuration for SilverStripe
 
-	Requires PHPUnit 3.5+
+	Requires PHPUnit 5+
 
 	Usage:
 	 - "phpunit": Runs all tests in all folders
