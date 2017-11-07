@@ -1,6 +1,6 @@
 ## Overview
 
-Base project folder for a SilverStripe ([http://silverstripe.org](http://silverstripe.org)) installation. Required modules are installed via [http://github.com/silverstripe/recipe-cms](silverstripe/recipe-cms). For information on how to change the dependencies in a recipe, please have a look at [https://github.com/silverstripe/recipe-plugin](silverstripe/recipe-plugin). In addition, installer includes [theme/simple](https://github.com/silverstripe-themes/silverstripe-simple) as a default theme.
+Base project folder for a SilverStripe ([http://silverstripe.org](http://silverstripe.org)) installation. Required modules are installed via [http://github.com/silverstripe/recipe-cms](http://github.com/silverstripe/recipe-cms). For information on how to change the dependencies in a recipe, please have a look at [https://github.com/silverstripe/recipe-plugin](https://github.com/silverstripe/recipe-plugin). In addition, installer includes [theme/simple](https://github.com/silverstripe-themes/silverstripe-simple) as a default theme.
 
 ## Installation ##
 
@@ -11,7 +11,7 @@ and [installation from source](http://doc.silverstripe.org/framework/en/installa
 
 Bugs are tracked on github.com ([framework issues](https://github.com/silverstripe/silverstripe-framework/issues),
 [cms issues](https://github.com/silverstripe/silverstripe-cms/issues)).
-Please read our [issue reporting guidelines](http://doc.silverstripe.org/framework/en/misc/contributing/issues).
+Please read our [issue reporting guidelines](https://docs.silverstripe.org/en/4/contributing/issues_and_bugs/).
 
 ## Development and Contribution ##
 
