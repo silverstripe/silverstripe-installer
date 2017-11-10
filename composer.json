@@ -9,7 +9,7 @@
         "silverstripe-themes/simple": "~3.2.0"
     },
     "require-dev": {
-        "phpunit/PHPUnit": "^5.7"
+        "phpunit/phpunit": "^5.7"
     },
     "extra": {
         "project-files": [
