@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="SS3">
-    <description>Coding standard for SilverStripe 3.x</description>
+    <description>Coding standard for SilverStripe 4.x</description>
 
     <!-- Don't sniff third party libraries -->
     <exclude-pattern>*/vendor/*</exclude-pattern>
