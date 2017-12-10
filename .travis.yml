@@ -67,7 +67,7 @@ before_script:
   - composer validate
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^3 silverstripe/serve:dev-master se/selenium-server-standalone:2.41.0; fi;
-  - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+  - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
 # Start behat services
   - if [[ $BEHAT_TEST ]]; then echo 'SS_BASE_URL=http://localhost:8080/' >> .env; fi
