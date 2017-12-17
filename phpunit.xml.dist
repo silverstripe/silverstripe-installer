@@ -1,14 +1,15 @@
 <!--
 	PHPUnit configuration for SilverStripe
 
-	Requires PHPUnit 5+
+	Requires PHPUnit 7+
 
 	Usage:
-	 - "phpunit": Runs all tests in all folders
-	 - "phpunit framework/tests/": Run all tests of the framework module
-	 - "phpunit framework/tests/filesystem": Run all filesystem tests within the framework module
-	 - "phpunit framework/tests/filesystem/FolderTest.php": Run a single test
-	 - "phpunit <dash><dash>coverage-html assets/": Generate coverage report (replace <dash> with "-", requires xdebug)
+	 - "vendor/bin/phpunit": Runs all tests in all folders
+	 - "vendor/bin/phpunit vendor/silverstripe/framework/tests/": Run all tests of the framework module
+	 - "vendor/bin/phpunit <dash><dash>group admin": Run all tests within the core test group
+	                       (replace <dash> with "-", requires xdebug)
+	 - "vendor/bin/phpunit <dash><dash>filter FolderTest vendor/silverstripe/framework/tests": Run a single test
+	 - "phpunit <dash><dash>coverage-html assets/": Generate coverage report
 
 	More information:
 	- http://www.phpunit.de/manual/current/en/textui.html
@@ -16,35 +17,41 @@
 
 	It is safe to remove this file for normal website operation.
 -->
-<phpunit bootstrap="vendor/silverstripe/framework/tests/bootstrap.php" colors="true">
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
+        bootstrap="vendor/silverstripe/framework/tests/bootstrap.php"
+        colors="true">
 
-	<testsuite name="Default">
-		<directory>mysite/tests</directory>
-		<directory>vendor/silverstripe/cms/tests/php</directory>
-		<directory>vendor/silverstripe/framework/tests/php</directory>
-	</testsuite>
+    <testsuites>
+        <testsuite name="Default">
+            <directory>mysite/tests</directory>
+            <directory>vendor/silverstripe/cms/tests/php</directory>
+            <directory>vendor/silverstripe/framework/tests/php</directory>
+        </testsuite>
 
-    <!-- core components -->
-    <testsuite name="core">
-		<directory>vendor/silverstripe/framework/tests/php/</directory>
-		<directory>vendor/silverstripe/assets/tests/php/</directory>
-        <directory>vendor/silverstripe/versioned/tests/php/</directory>
-    </testsuite>
+        <!-- core components -->
+        <testsuite name="core">
+            <directory>vendor/silverstripe/framework/tests/php/</directory>
+            <directory>vendor/silverstripe/assets/tests/php/</directory>
+            <directory>vendor/silverstripe/versioned/tests/php/</directory>
+        </testsuite>
 
-    <!-- admin components -->
-    <testsuite name="admin">
-        <directory>vendor/silverstripe/cms/tests/</directory>
-        <directory>vendor/silverstripe/admin/tests/php/</directory>
-        <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
-        <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
-        <directory>vendor/silverstripe/graphql/tests/</directory>
-        <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
-        <directory>vendor/silverstripe/reports/tests/</directory>
-    </testsuite>
+        <!-- admin components -->
+        <testsuite name="admin">
+            <directory>vendor/silverstripe/cms/tests/</directory>
+            <directory>vendor/silverstripe/admin/tests/php/</directory>
+            <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
+            <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
+            <directory>vendor/silverstripe/graphql/tests/</directory>
+            <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
+            <directory>vendor/silverstripe/reports/tests/</directory>
+        </testsuite>
+    </testsuites>
 
-	<groups>
-		<exclude>
-			<group>sanitychecks</group>
-		</exclude>
-	</groups>
+    <groups>
+        <exclude>
+            <group>sanitychecks</group>
+        </exclude>
+    </groups>
 </phpunit>
