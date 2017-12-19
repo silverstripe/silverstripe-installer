@@ -2,6 +2,8 @@ language: php
 
 dist: trusty
 
+group: deprecated-2017Q4
+
 cache:
   directories:
     - $HOME/.composer/cache/files
@@ -15,7 +17,7 @@ addons:
 env:
   global:
     - TRAVIS_NODE_VERSION="6"
-    - COMPOSER_ROOT_VERSION="4.0.x-dev"
+    - COMPOSER_ROOT_VERSION="4.x-dev"
     - DISPLAY=":99"
     - XVFBARGS=":99 -ac -screen 0 1024x768x16"
 
@@ -58,7 +60,6 @@ matrix:
 
 before_script:
 # Init PHP
-  - printf "\n" | pecl install imagick
   - phpenv rehash
   - phpenv config-rm xdebug.ini || true
   - echo 'memory_limit = 2048M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -66,8 +67,8 @@ before_script:
 # Install composer dependencies
   - composer validate
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
-  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^3 silverstripe/serve:dev-master se/selenium-server-standalone:2.41.0; fi;
-  - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^3 silverstripe/serve:^2 se/selenium-server-standalone:2.41.0; fi;
+  - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
 # Start behat services
   - if [[ $BEHAT_TEST ]]; then echo 'SS_BASE_URL=http://localhost:8080/' >> .env; fi
