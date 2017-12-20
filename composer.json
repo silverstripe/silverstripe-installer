@@ -13,9 +13,11 @@
     },
     "extra": {
         "project-files": [
-            "assets/*",
             "mysite/_config/*",
-            ".env.example",
+            ".env.example"
+        ],
+        "public-files": [
+            "assets/*",
             "favicon.ico"
         ],
         "branch-alias": {
