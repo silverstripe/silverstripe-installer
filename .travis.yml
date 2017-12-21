@@ -2,6 +2,10 @@ language: php
 
 dist: trusty
 
+sudo: required
+
+group: deprecated-2017Q4
+
 cache:
   directories:
     - $HOME/.composer/cache/files
@@ -15,7 +19,7 @@ addons:
 env:
   global:
     - TRAVIS_NODE_VERSION="6"
-    - COMPOSER_ROOT_VERSION="4.0.x-dev"
+    - COMPOSER_ROOT_VERSION="5.x-dev"
     - DISPLAY=":99"
     - XVFBARGS=":99 -ac -screen 0 1024x768x16"
 
@@ -43,22 +47,21 @@ matrix:
         - DB=MYSQL
         - PDO=1
     # behat tests
-    - php: 5.6
+    - php: 7.0
       env:
         - BEHAT_TEST="@framework"
         - DB=MYSQL
-    - php: 5.6
+    - php: 7.0
       env:
         - BEHAT_TEST="@cms"
         - DB=MYSQL
-    - php: 5.6
+    - php: 7.0
       env:
         - BEHAT_TEST="@asset-admin"
         - DB=MYSQL
 
 before_script:
 # Init PHP
-  - printf "\n" | pecl install imagick
   - phpenv rehash
   - phpenv config-rm xdebug.ini || true
   - echo 'memory_limit = 2048M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -66,8 +69,8 @@ before_script:
 # Install composer dependencies
   - composer validate
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
-  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^3 silverstripe/serve:dev-master se/selenium-server-standalone:2.41.0; fi;
-  - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^3 silverstripe/serve:^2 se/selenium-server-standalone:2.41.0; fi;
+  - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
 # Start behat services
   - if [[ $BEHAT_TEST ]]; then echo 'SS_BASE_URL=http://localhost:8080/' >> .env; fi
@@ -75,14 +78,14 @@ before_script:
   - if [[ $BEHAT_TEST ]]; then cp composer.lock artifacts/; fi
   - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
   - if [[ $BEHAT_TEST ]]; then (vendor/bin/selenium-server-standalone > artifacts/selenium.log 2>&1 &); fi
-  - if [[ $BEHAT_TEST ]]; then (vendor/bin/serve --bootstrap-file cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); fi
+  - if [[ $BEHAT_TEST ]]; then (vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); fi
 
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite $PHPUNIT_TEST; fi
   - if [[ $BEHAT_TEST ]]; then vendor/bin/behat $BEHAT_TEST; fi
 
 after_failure:
-  - if [[ $BEHAT_TEST ]]; then php ./framework/tests/behat/travis-upload-artifacts.php --if-env BEHAT_TEST,ARTIFACTS_BUCKET,ARTIFACTS_KEY,ARTIFACTS_SECRET --target-path $TRAVIS_REPO_SLUG/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID --artifacts-base-url https://s3.amazonaws.com/$ARTIFACTS_BUCKET/ --artifacts-path ./artifacts/; fi
+  - if [[ $BEHAT_TEST ]]; then php ./vendor/silverstripe/framework/tests/behat/travis-upload-artifacts.php --if-env BEHAT_TEST,ARTIFACTS_BUCKET,ARTIFACTS_KEY,ARTIFACTS_SECRET --target-path $TRAVIS_REPO_SLUG/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID --artifacts-base-url https://s3.amazonaws.com/$ARTIFACTS_BUCKET/ --artifacts-path ./artifacts/; fi
 
 notifications:
   slack: silverstripeltd:Cls1xnypKBLFhv0YIRtNLzlQ
