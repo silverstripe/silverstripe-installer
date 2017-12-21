@@ -59,6 +59,11 @@ matrix:
       env:
         - BEHAT_TEST="@asset-admin"
         - DB=MYSQL
+    - php: 5.6
+      env:
+        - HEALTH_TEST=1
+        - DB=MYSQL
+        - PDO=1
 
 before_script:
 # Init PHP
@@ -70,22 +75,26 @@ before_script:
   - composer validate
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^3 silverstripe/serve:^2 se/selenium-server-standalone:2.41.0; fi;
-  - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+  - if [[ $HEALTH_TEST ]]; then composer require --no-update silverstripe/serve:^2; fi;
+  - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
+  - if [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev; fi;
 
 # Start behat services
-  - if [[ $BEHAT_TEST ]]; then echo 'SS_BASE_URL=http://localhost:8080/' >> .env; fi
-  - if [[ $BEHAT_TEST ]]; then mkdir artifacts; fi
-  - if [[ $BEHAT_TEST ]]; then cp composer.lock artifacts/; fi
+  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then echo 'SS_BASE_URL=http://localhost:8080/' >> .env; fi
+  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then mkdir artifacts; fi
+  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then cp composer.lock artifacts/; fi
   - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
   - if [[ $BEHAT_TEST ]]; then (vendor/bin/selenium-server-standalone > artifacts/selenium.log 2>&1 &); fi
-  - if [[ $BEHAT_TEST ]]; then (vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); fi
+  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then (vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); sleep 3; fi
 
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite $PHPUNIT_TEST; fi
   - if [[ $BEHAT_TEST ]]; then vendor/bin/behat $BEHAT_TEST; fi
+  - if [[ $HEALTH_TEST ]]; then curl -vfL http://localhost:8080/dev/build?flush; fi
+  - if [[ $HEALTH_TEST ]]; then curl -vfL http://localhost:8080/admin; fi
 
 after_failure:
-  - if [[ $BEHAT_TEST ]]; then php ./vendor/silverstripe/framework/tests/behat/travis-upload-artifacts.php --if-env BEHAT_TEST,ARTIFACTS_BUCKET,ARTIFACTS_KEY,ARTIFACTS_SECRET --target-path $TRAVIS_REPO_SLUG/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID --artifacts-base-url https://s3.amazonaws.com/$ARTIFACTS_BUCKET/ --artifacts-path ./artifacts/; fi
+  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then php ./vendor/silverstripe/framework/tests/behat/travis-upload-artifacts.php --if-env ARTIFACTS_BUCKET,ARTIFACTS_KEY,ARTIFACTS_SECRET --target-path $TRAVIS_REPO_SLUG/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID --artifacts-base-url https://s3.amazonaws.com/$ARTIFACTS_BUCKET/ --artifacts-path ./artifacts/; fi
 
 notifications:
   slack: silverstripeltd:Cls1xnypKBLFhv0YIRtNLzlQ
