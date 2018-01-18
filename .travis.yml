@@ -27,7 +27,7 @@ matrix:
   fast_finish: true
   include:
     # Core php tests
-    - php: 5.6
+    - php: 7.2
       env:
         - PHPUNIT_TEST=core
         - DB=MYSQL
@@ -37,7 +37,7 @@ matrix:
         - PHPUNIT_TEST=core
         - DB=PGSQL
     # admin php tests
-    - php: 5.6
+    - php: 7.2
       env:
         - PHPUNIT_TEST=admin
         - DB=PGSQL
@@ -47,15 +47,15 @@ matrix:
         - DB=MYSQL
         - PDO=1
     # behat tests
-    - php: 7.0
+    - php: 7.1
       env:
         - BEHAT_TEST="@framework"
         - DB=MYSQL
-    - php: 7.0
+    - php: 7.1
       env:
         - BEHAT_TEST="@cms"
         - DB=MYSQL
-    - php: 7.0
+    - php: 7.1
       env:
         - BEHAT_TEST="@asset-admin"
         - DB=MYSQL
@@ -68,8 +68,8 @@ before_script:
 
 # Install composer dependencies
   - composer validate
-  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
-  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^3 silverstripe/serve:^2 se/selenium-server-standalone:2.41.0; fi;
+  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:3.x-dev; fi
+  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:^4 silverstripe/serve:^3 se/selenium-server-standalone:2.41.0; fi;
   - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
 # Start behat services
