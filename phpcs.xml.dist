@@ -6,8 +6,7 @@
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/thirdparty/*</exclude-pattern>
 
-    <!-- Show progress and output sniff names on violation, and add colours -->
-    <arg value="sp"/>
+    <!-- Add colours -->
     <arg name="colors"/>
 
     <!-- Use PSR-2 as a base standard -->
