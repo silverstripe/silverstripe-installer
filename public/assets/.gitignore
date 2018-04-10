@@ -1,4 +1,4 @@
-# Ignore sensible defaults
-/*/
-/error-*.html
-/_combinedfiles/
+/**/*
+!.gitignore
+!.htaccess
+!web.config
