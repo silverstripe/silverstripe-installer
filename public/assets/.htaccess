@@ -4,6 +4,15 @@
 # See AssetAdapter::renderTemplate() for reference.
 #
 
+# We disable PHP via several methods
+# Replace the handler with the default plaintext handler
+AddHandler default-handler php phtml php3 php4 php5 inc
+
+<IfModule mod_php5.c>
+    # Turn the PHP engine off
+    php_flag engine off
+</IfModule>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_env.c>
         SetEnv HTTP_MOD_REWRITE On
@@ -11,16 +20,12 @@
 
     RewriteEngine On
 
-    # Disable PHP handler
-    RewriteCond %{REQUEST_URI} .(?i:php|phtml|php3|php4|php5|inc)$
-    RewriteRule .* - [F]
-
     # Allow error pages
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule error[^\\/]*\.html$ - [L]
 
     # Block invalid file extensions
-    RewriteCond %{REQUEST_URI} !\.(?i:ace|arc|arj|asf|au|avi|bmp|bz2|cab|cda|css|csv|dmg|doc|docx|dotx|dotm|flv|gif|gpx|gz|hqx|ico|jar|jpeg|jpg|js|kml|m4a|m4v|mid|midi|mkv|mov|mp3|mp4|mpa|mpeg|mpg|ogg|ogv|pages|pcx|pdf|png|pps|ppt|pptx|potx|potm|ra|ram|rm|rtf|sit|sitx|tar|tgz|tif|tiff|txt|wav|webm|wma|wmv|xls|xlsx|xltx|xltm|zip|zipx)$
+    RewriteCond %{REQUEST_URI} !^[^.]*\.(?i:css|js|ace|arc|arj|asf|au|avi|bmp|bz2|cab|cda|csv|dmg|doc|docx|dotx|flv|gif|gpx|gz|hqx|ico|jpeg|jpg|kml|m4a|m4v|mid|midi|mkv|mov|mp3|mp4|mpa|mpeg|mpg|ogg|ogv|pages|pcx|pdf|png|pps|ppt|pptx|potx|ra|ram|rm|rtf|sit|sitx|tar|tgz|tif|tiff|txt|wav|webm|wma|wmv|xls|xlsx|xltx|zip|zipx)$
     RewriteRule .* - [F]
 
     # Non existant files passed to requesthandler
