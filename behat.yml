@@ -1,20 +1,20 @@
-# Note: Currently firefox 31-ESR is recommended
+# Note: Currently chrome latest is recommended
 # Behat test setup requires an `.env` with `SS_BASE_URL` defined, as well
 # as each of the following commands to initiate a test run:
 # ========================================================================= #
-# composer require silverstripe/behat-extension:^3 silverstripe/serve:dev-master se/selenium-server-standalone:2.41.0
-# vendor/bin/selenium-server-standalone -Dwebdriver.firefox.bin="/Applications/Firefox31.app/Contents/MacOS/firefox-bin"
-# vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php
-# vendor/bin/behat @<module>
+# composer require silverstripe/recipe-testing ^1
+# vendor/bin/behat-ss @<module>
 # ========================================================================= #
 default:
   suites: []
   extensions:
     SilverStripe\BehatExtension\MinkExtension:
-      default_session: selenium2
-      javascript_session: selenium2
-      selenium2:
-        browser: firefox
+      default_session: facebook_web_driver
+      javascript_session: facebook_web_driver
+      facebook_web_driver:
+        browser: chrome
+        wd_host: "http://127.0.0.1:9515" #chromedriver port
+      browser_name: chrome
     SilverStripe\BehatExtension\Extension:
       bootstrap_file: vendor/silverstripe/cms/tests/behat/serve-bootstrap.php
       screenshot_path: %paths.base%/artifacts/screenshots
