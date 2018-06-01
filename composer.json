@@ -11,12 +11,6 @@
     "require-dev": {
         "phpunit/phpunit": "^5.7"
     },
-    "autoload": {
-        "classmap": [
-            "app/src/Page.php",
-            "app/src/PageController.php"
-        ]
-    },
     "extra": {
         "project-files": [
             "app/_config/*",
