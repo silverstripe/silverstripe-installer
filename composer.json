@@ -21,7 +21,7 @@
             "favicon.ico"
         ],
         "branch-alias": {
-            "4.x-dev": "4.2.x-dev"
+            "4.x-dev": "4.3.x-dev"
         }
     },
     "config": {
