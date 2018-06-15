@@ -19,10 +19,7 @@
         "public-files": [
             "assets/*",
             "favicon.ico"
-        ],
-        "branch-alias": {
-            "4.x-dev": "4.2.x-dev"
-        }
+        ]
     },
     "config": {
         "process-timeout": 600
