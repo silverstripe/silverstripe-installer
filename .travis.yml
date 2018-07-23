@@ -79,7 +79,7 @@ before_script:
   - composer validate
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:3.x-dev; fi
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/recipe-testing:^2; fi;
-  - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
+  - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
   - if [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev; fi;
 
 # Start behat services
