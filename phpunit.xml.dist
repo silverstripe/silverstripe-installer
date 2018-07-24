@@ -1,57 +1,51 @@
 <!--
 	PHPUnit configuration for SilverStripe
 
-	Requires PHPUnit 7+
+	Requires PHPUnit ^7.1
 
 	Usage:
 	 - "vendor/bin/phpunit": Runs all tests in all folders
 	 - "vendor/bin/phpunit vendor/silverstripe/framework/tests/": Run all tests of the framework module
-	 - "vendor/bin/phpunit <dash><dash>group admin": Run all tests within the core test group
-	                       (replace <dash> with "-", requires xdebug)
+	 - "vendor/bin/phpunit <dash><dash>testsuite admin": Run all tests within the core test group
+	                       (replace <dash> with "-")
 	 - "vendor/bin/phpunit <dash><dash>filter FolderTest vendor/silverstripe/framework/tests": Run a single test
-	 - "phpunit <dash><dash>coverage-html assets/": Generate coverage report
+	 - "phpunit <dash><dash>coverage-html assets/": Generate coverage report (requires xdebug or phpdbg)
 
 	More information:
-	- http://www.phpunit.de/manual/current/en/textui.html
-	- http://doc.silverstripe.org/framework/en/topics/testing/#configuration
+	- https://www.phpunit.de
+	- https://doc.silverstripe.org/framework/en/topics/testing/#configuration
 
 	It is safe to remove this file for normal website operation.
 -->
 <phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
-        bootstrap="vendor/silverstripe/framework/tests/bootstrap.php"
-        colors="true">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.1/phpunit.xsd"
+  bootstrap="vendor/silverstripe/framework/tests/bootstrap.php"
+  colors="true"
+>
+  <testsuites>
+    <testsuite name="Default">
+      <directory>app/tests</directory>
+      <directory>vendor/silverstripe/cms/tests/php</directory>
+      <directory>vendor/silverstripe/framework/tests/php</directory>
+    </testsuite>
 
-    <testsuites>
-        <testsuite name="Default">
-            <directory>mysite/tests</directory>
-            <directory>vendor/silverstripe/cms/tests/php</directory>
-            <directory>vendor/silverstripe/framework/tests/php</directory>
-        </testsuite>
+    <!-- core components -->
+    <testsuite name="core">
+      <directory>vendor/silverstripe/framework/tests/php/</directory>
+      <directory>vendor/silverstripe/assets/tests/php/</directory>
+      <directory>vendor/silverstripe/versioned/tests/php/</directory>
+    </testsuite>
 
-        <!-- core components -->
-        <testsuite name="core">
-            <directory>vendor/silverstripe/framework/tests/php/</directory>
-            <directory>vendor/silverstripe/assets/tests/php/</directory>
-            <directory>vendor/silverstripe/versioned/tests/php/</directory>
-        </testsuite>
-
-        <!-- admin components -->
-        <testsuite name="admin">
-            <directory>vendor/silverstripe/cms/tests/</directory>
-            <directory>vendor/silverstripe/admin/tests/php/</directory>
-            <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
-            <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
-            <directory>vendor/silverstripe/graphql/tests/</directory>
-            <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
-            <directory>vendor/silverstripe/reports/tests/</directory>
-        </testsuite>
-    </testsuites>
-
-    <groups>
-        <exclude>
-            <group>sanitychecks</group>
-        </exclude>
-    </groups>
+    <!-- admin components -->
+    <testsuite name="admin">
+      <directory>vendor/silverstripe/cms/tests/</directory>
+      <directory>vendor/silverstripe/admin/tests/php/</directory>
+      <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
+      <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
+      <directory>vendor/silverstripe/graphql/tests/</directory>
+      <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
+      <directory>vendor/silverstripe/reports/tests/</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>

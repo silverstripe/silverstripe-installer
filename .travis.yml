@@ -60,7 +60,7 @@ matrix:
       env:
         - BEHAT_TEST="@asset-admin"
         - DB=MYSQL
-    - php: 5.6
+    - php: 7.2
       env:
         - HEALTH_TEST=1
         - DB=MYSQL
@@ -79,7 +79,7 @@ before_script:
   - composer validate
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:3.x-dev; fi
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/recipe-testing:^2; fi;
-  - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
+  - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
   - if [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev; fi;
 
 # Start behat services
@@ -90,8 +90,8 @@ before_script:
   - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then (vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); sleep 3; fi
 
 script:
-  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite $PHPUNIT_TEST; fi
-  - if [[ $BEHAT_TEST ]]; then vendor/bin/behat $BEHAT_TEST; fi
+  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite "$PHPUNIT_TEST"; fi
+  - if [[ $BEHAT_TEST ]]; then vendor/bin/behat "$BEHAT_TEST"; fi
   - if [[ $HEALTH_TEST ]]; then curl -vfL http://localhost:8080/dev/build?flush; fi
   - if [[ $HEALTH_TEST ]]; then curl -vfL http://localhost:8080/admin; fi
 
