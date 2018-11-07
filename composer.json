@@ -5,7 +5,7 @@
     "require": {
         "php": ">=5.6.0",
         "silverstripe/recipe-plugin": "^1.2",
-        "silverstripe/recipe-cms": "4.3.x-dev",
+        "silverstripe/recipe-cms": "4.3.0-rc1",
         "silverstripe-themes/simple": "~3.2.0"
     },
     "require-dev": {
