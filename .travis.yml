@@ -100,4 +100,7 @@ after_failure:
   - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then php ./vendor/silverstripe/framework/tests/behat/travis-upload-artifacts.php --if-env ARTIFACTS_BUCKET,ARTIFACTS_KEY,ARTIFACTS_SECRET --target-path $TRAVIS_REPO_SLUG/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID --artifacts-base-url https://s3.amazonaws.com/$ARTIFACTS_BUCKET/ --artifacts-path ./artifacts/; fi
 
 notifications:
-  slack: silverstripeltd:Cls1xnypKBLFhv0YIRtNLzlQ
+  slack:
+    on_pull_requests: false
+    rooms:
+      secure: pr4kG5tTMqZy1DLejHd1MpPulAE7FtRvTYekWrKIbQF0SkbFz+s3v9fAk2AqCr+SxfV67M3M+sL52/q6TDjeGYJJttwA60gyfH/Qrc/ToCYP3J80Ca/hsk02mya0pF8Kpjg37XP8kNzAllR162mCwYKJgFiXO6Q1eb/aVJwiqmQ=
