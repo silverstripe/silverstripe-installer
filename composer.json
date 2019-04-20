@@ -20,9 +20,6 @@
             "assets/*",
             "favicon.ico"
         ],
-        "branch-alias": {
-            "4.x-dev": "4.4.x-dev"
-        },
         "resources-dir": "_resources"
     },
     "config": {
