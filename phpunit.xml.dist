@@ -6,10 +6,10 @@
 	Usage:
 	 - "vendor/bin/phpunit": Runs all tests in all folders
 	 - "vendor/bin/phpunit vendor/silverstripe/framework/tests/": Run all tests of the framework module
-	 - "vendor/bin/phpunit <dash><dash>testsuite admin": Run all tests within the core test group
-	                       (replace <dash> with "-")
-	 - "vendor/bin/phpunit <dash><dash>filter FolderTest vendor/silverstripe/framework/tests": Run a single test
-	 - "phpunit <dash><dash>coverage-html assets/": Generate coverage report (requires xdebug or phpdbg)
+	 - "vendor/bin/phpunit vendor/silverstripe/framework/tests/filesystem": Run all filesystem tests within framework
+	 - "vendor/bin/phpunit vendor/silverstripe/framework/tests/filesystem/FolderTest.php": Run a single test
+	 - "vendor/bin/phpunit <dash><dash>coverage-html assets/": Generate coverage report (replace
+	                                                           <dash> with "-", requires xdebug or phpdbg)
 
 	More information:
 	- https://www.phpunit.de
@@ -30,9 +30,13 @@
       <directory>vendor/silverstripe/framework/tests/php</directory>
     </testsuite>
 
-    <!-- core components -->
-    <testsuite name="core">
+    <!-- framework only -->
+    <testsuite name="framework">
       <directory>vendor/silverstripe/framework/tests/php/</directory>
+    </testsuite>
+
+    <!-- other core components -->
+    <testsuite name="core">
       <directory>vendor/silverstripe/assets/tests/php/</directory>
       <directory>vendor/silverstripe/versioned/tests/php/</directory>
     </testsuite>

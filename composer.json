@@ -28,7 +28,8 @@
         ],
         "branch-alias": {
             "dev-master": "5.x-dev"
-        }
+        },
+        "resources-dir": "_resources"
     },
     "config": {
         "process-timeout": 600

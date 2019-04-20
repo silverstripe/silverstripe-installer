@@ -33,7 +33,11 @@ matrix:
         - PHPUNIT_TEST=core
         - DB=MYSQL
         - PDO=1
-    - php: 7.1.2
+    - php: 7.1
+      env:
+        - PHPUNIT_TEST=framework
+        - DB=MYSQL
+    - php: 7.3
       env:
         - PHPUNIT_TEST=core
         - DB=PGSQL
@@ -42,7 +46,7 @@ matrix:
       env:
         - PHPUNIT_TEST=admin
         - DB=PGSQL
-    - php: 7.1.2
+    - php: 7.2
       env:
         - PHPUNIT_TEST=admin
         - DB=MYSQL
