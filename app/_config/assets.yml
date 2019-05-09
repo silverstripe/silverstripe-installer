@@ -1,0 +1,26 @@
+# SilverStripe 4.4 changes the way files are resolved. `silverstripe-assets` resolves files using a variety of formats
+# by default. When starting a brand new project on SilverStripe 4.4 or greater, those extra formats are not needed and
+# will slowdown file resolution requests a bit. This config removes those redundant formats.
+
+---
+Name: project-assetsflysystem
+After: '#assetsflysystem'
+---
+SilverStripe\Core\Injector\Injector:
+  # Define public resolution strategy
+  SilverStripe\Assets\FilenameParsing\FileResolutionStrategy.public:
+    class: SilverStripe\Assets\FilenameParsing\FileIDHelperResolutionStrategy
+    properties:
+      ResolutionFileIDHelpers:
+        - '%$SilverStripe\Assets\FilenameParsing\HashFileIDHelper'
+        - '%$SilverStripe\Assets\FilenameParsing\NaturalFileIDHelper'
+      DefaultFileIDHelper: '%$SilverStripe\Assets\FilenameParsing\NaturalFileIDHelper'
+      VersionedStage: Live
+  # Define protected resolution strategy
+  SilverStripe\Assets\FilenameParsing\FileResolutionStrategy.protected:
+    class: SilverStripe\Assets\FilenameParsing\FileIDHelperResolutionStrategy
+    properties:
+      DefaultFileIDHelper: '%$SilverStripe\Assets\FilenameParsing\HashFileIDHelper'
+      ResolutionFileIDHelpers:
+        - '%$SilverStripe\Assets\FilenameParsing\HashFileIDHelper'
+      VersionedStage: Stage
