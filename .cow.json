@@ -2,6 +2,7 @@
   "github-slug": "silverstripe/silverstripe-installer",
   "changelog-holder": "silverstripe/framework",
   "changelog-path": "docs/en/04_Changelogs/{stability}/{version}.md",
+  "changelog-template": ".changelog.md.twig",
   "child-stability-inherit": true,
   "dependency-constraint": "exact",
   "vendors": [
