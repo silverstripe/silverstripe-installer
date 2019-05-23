@@ -18,7 +18,7 @@ addons:
 env:
   global:
     - TRAVIS_NODE_VERSION="6"
-    - COMPOSER_ROOT_VERSION="4.4.x-dev"
+    - COMPOSER_ROOT_VERSION="4.5.x-dev"
     - DISPLAY=":99"
     - XVFBARGS=":99 -ac -screen 0 1024x768x16"
     - SS_BASE_URL="http://localhost:8080/"
@@ -28,12 +28,12 @@ matrix:
   fast_finish: true
   include:
     # Core php tests
-    - php: 5.6
+    - php: 7.1
       env:
         - PHPUNIT_TEST=core
         - DB=MYSQL
         - PDO=1
-    - php: 7.1
+    - php: 7.2
       env:
         - PHPUNIT_TEST=framework
         - DB=MYSQL
@@ -42,7 +42,7 @@ matrix:
         - PHPUNIT_TEST=core
         - DB=PGSQL
     # admin php tests
-    - php: 7.0
+    - php: 7.1
       env:
         - PHPUNIT_TEST=admin
         - DB=PGSQL
@@ -52,19 +52,19 @@ matrix:
         - DB=MYSQL
         - PDO=1
     # behat tests
-    - php: 7.0
+    - php: 7.1
       env:
         - BEHAT_TEST="@framework"
         - DB=MYSQL
-    - php: 7.0
+    - php: 7.2
       env:
         - BEHAT_TEST="@cms"
         - DB=MYSQL
-    - php: 7.0
+    - php: 7.3
       env:
         - BEHAT_TEST="@asset-admin"
         - DB=MYSQL
-    - php: 5.6
+    - php: 7.3
       env:
         - HEALTH_TEST=1
         - DB=MYSQL
