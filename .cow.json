@@ -6,14 +6,5 @@
   "dependency-constraint": "exact",
   "vendors": [
     "silverstripe"
-  ],
-  "archives": [
-    {
-      "recipe": "silverstripe/installer",
-      "files": [
-        "SilverStripe-cms-v{version}.zip",
-        "SilverStripe-cms-v{version}.tar.gz"
-      ]
-    }
   ]
 }
