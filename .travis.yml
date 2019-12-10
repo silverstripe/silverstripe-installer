@@ -21,7 +21,7 @@ addons:
 env:
   global:
     - TRAVIS_NODE_VERSION="6"
-    - COMPOSER_ROOT_VERSION="4.6.x-dev"
+    - COMPOSER_ROOT_VERSION="4.x-dev"
     - SS_BASE_URL="http://localhost:8080/"
     - SS_ENVIRONMENT_TYPE="dev"
 
@@ -87,7 +87,7 @@ before_script:
 
 # Install composer dependencies
   - composer validate
-  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.4.x-dev; fi
+  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.x-dev; fi
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/recipe-testing:^1; fi;
   - if [[ $HEALTH_TEST ]]; then composer require --no-update silverstripe/serve:^2; fi;
   - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
