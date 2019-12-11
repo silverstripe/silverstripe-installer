@@ -2,6 +2,7 @@
   "github-slug": "silverstripe/silverstripe-installer",
   "changelog-holder": "silverstripe/framework",
   "changelog-path": "docs/en/04_Changelogs/{stability}/{version}.md",
+  "changelog-template": ".cow/.changelog.md.twig",
   "child-stability-inherit": true,
   "dependency-constraint": "exact",
   "vendors": [
@@ -13,21 +14,5 @@
   ],
   "exclude": [
     "silverstripe/recipe-plugin"
-  ],
-  "archives": [
-    {
-      "recipe": "silverstripe/recipe-core",
-      "files": [
-        "SilverStripe-framework-v{version}.zip",
-        "SilverStripe-framework-v{version}.tar.gz"
-      ]
-    },
-    {
-      "recipe": "silverstripe/installer",
-      "files": [
-        "SilverStripe-cms-v{version}.zip",
-        "SilverStripe-cms-v{version}.tar.gz"
-      ]
-    }
   ]
 }
