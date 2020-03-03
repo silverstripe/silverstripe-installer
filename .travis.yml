@@ -42,6 +42,10 @@ matrix:
       env:
         - PHPUNIT_TEST=core
         - DB=PGSQL
+    - php: 7.4
+      env:
+        - PHPUNIT_TEST=core
+        - DB=MYSQL
     # admin php tests
     - php: 7.1
       env:
@@ -52,6 +56,10 @@ matrix:
         - PHPUNIT_TEST=admin
         - DB=MYSQL
         - PDO=1
+    - php: 7.4
+      env:
+        - PHPUNIT_TEST=admin
+        - DB=MYSQL
     # behat tests
     - php: 7.1
       env:
@@ -66,6 +74,10 @@ matrix:
         - BEHAT_TEST="@asset-admin"
         - DB=MYSQL
     - php: 7.3
+      env:
+        - HEALTH_TEST=1
+        - DB=PGSQL
+    - php: 7.4
       env:
         - HEALTH_TEST=1
         - DB=MYSQL

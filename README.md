@@ -4,8 +4,9 @@ Base project folder for a SilverStripe ([http://silverstripe.org](http://silvers
 
 ## Installation ##
 
-See [installation on different platforms](http://doc.silverstripe.org/framework/en/installation/),
-and [installation from source](http://doc.silverstripe.org/framework/en/installation/from-source).
+`composer create-project silverstripe/installer my-app`
+
+See [Getting Started](https://docs.silverstripe.org/en/4/getting_started/) for more information.
 
 ## Bugtracker ##
 
@@ -15,11 +16,11 @@ Please read our [issue reporting guidelines](https://docs.silverstripe.org/en/4/
 
 ## Development and Contribution ##
 
-If you would like to make changes to the SilverStripe core codebase, we have an extensive [guide to contributing code](http://doc.silverstripe.org/framework/en/misc/contributing/code).
+If you would like to make changes to the SilverStripe core codebase, we have an extensive [guide to contributing code](https://docs.silverstripe.org/en/4/contributing/code/).
 
 ## Links ##
 
- * [Changelogs](http://doc.silverstripe.org/framework/en/changelogs/)
+ * [Changelogs](https://docs.silverstripe.org/en/4/changelogs/)
  * [Bugtracker: Framework](https://github.com/silverstripe/silverstripe-framework/issues)
  * [Bugtracker: CMS](https://github.com/silverstripe/silverstripe-cms/issues)
  * [Bugtracker: Installer](https://github.com/silverstripe/silverstripe-installer/issues)
