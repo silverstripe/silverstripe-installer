@@ -1,10 +1,11 @@
 language: php
 
-dist: trusty
+dist: xenial
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install chromium-chromedriver
+services:
+  - mysql
+  - postgresql
+  - xvfb
 
 cache:
   directories:
@@ -14,13 +15,13 @@ addons:
   apt:
     packages:
       - tidy
+      - chromium-chromedriver
+      - chromium-browser
 
 env:
   global:
     - TRAVIS_NODE_VERSION="6"
     - COMPOSER_ROOT_VERSION="5.x-dev"
-    - DISPLAY=":99"
-    - XVFBARGS=":99 -ac -screen 0 1024x768x16"
     - SS_BASE_URL="http://localhost:8080/"
     - SS_ENVIRONMENT_TYPE="dev"
 
@@ -28,12 +29,12 @@ matrix:
   fast_finish: true
   include:
     # Core php tests
-    - php: 7.2
+    - php: 7.1
       env:
         - PHPUNIT_TEST=core
         - DB=MYSQL
         - PDO=1
-    - php: 7.1
+    - php: 7.2
       env:
         - PHPUNIT_TEST=framework
         - DB=MYSQL
@@ -41,8 +42,12 @@ matrix:
       env:
         - PHPUNIT_TEST=core
         - DB=PGSQL
+    - php: 7.4
+      env:
+        - PHPUNIT_TEST=core
+        - DB=MYSQL
     # admin php tests
-    - php: 7.2
+    - php: 7.1
       env:
         - PHPUNIT_TEST=admin
         - DB=PGSQL
@@ -51,20 +56,28 @@ matrix:
         - PHPUNIT_TEST=admin
         - DB=MYSQL
         - PDO=1
+    - php: 7.4
+      env:
+        - PHPUNIT_TEST=admin
+        - DB=MYSQL
     # behat tests
     - php: 7.1
       env:
         - BEHAT_TEST="@framework"
         - DB=MYSQL
-    - php: 7.1
+    - php: 7.2
       env:
         - BEHAT_TEST="@cms"
         - DB=MYSQL
-    - php: 7.1
+    - php: 7.3
       env:
         - BEHAT_TEST="@asset-admin"
         - DB=MYSQL
-    - php: 7.2
+    - php: 7.3
+      env:
+        - HEALTH_TEST=1
+        - DB=PGSQL
+    - php: 7.4
       env:
         - HEALTH_TEST=1
         - DB=MYSQL
@@ -73,6 +86,11 @@ matrix:
 before_script:
 # Extra $PATH
   - export PATH=/usr/lib/chromium-browser/:$PATH
+
+# Remove preinstalled Chrome (google-chrome)
+  # this would conflict with our chromium-browser installation
+  # and its version is incompatible with chromium-chromedriver
+  - sudo apt-get remove -y --purge google-chrome-stable || true
 
 # Init PHP
   - phpenv rehash
@@ -90,7 +108,6 @@ before_script:
 # Start behat services
   - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then mkdir artifacts; fi
   - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then cp composer.lock artifacts/; fi
-  - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
   - if [[ $BEHAT_TEST ]]; then (chromedriver > artifacts/chromedriver.log 2>&1 &); fi
   - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then (vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); sleep 3; fi
 

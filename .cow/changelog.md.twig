@@ -1,0 +1,22 @@
+ # {{ version }}
+
+## Overview {{ '{#overview}' }}
+
+- 
+
+{% if version.stability == 'rc' %}
+
+## Release Candidate
+
+This version of Silverstripe CMS is a **release candidate** for an upcoming stable version, and should not be applied to production websites. We encourage developers to test this version in development / testing environments and report any issues they encounter via GitHub.
+
+{% elseif version.stable %}
+
+## Upgrading {{ '{#upgrading}' }}
+
+...
+
+{% endif %}
+
+{{ logs }}
+
