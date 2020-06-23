@@ -20,8 +20,7 @@ addons:
 
 env:
   global:
-    - TRAVIS_NODE_VERSION="6"
-    - COMPOSER_ROOT_VERSION="4.x-dev"
+    - COMPOSER_ROOT_VERSION="4.6.x-dev"
     - SS_BASE_URL="http://localhost:8080/"
     - SS_ENVIRONMENT_TYPE="dev"
 
@@ -30,58 +29,31 @@ matrix:
   include:
     # Core php tests
     - php: 7.1
-      env:
-        - PHPUNIT_TEST=core
-        - DB=MYSQL
-        - PDO=1
+      env: DB=MYSQL PHPUNIT_TEST=core PDO=1
     - php: 7.2
-      env:
-        - PHPUNIT_TEST=framework
-        - DB=MYSQL
+      env: DB=MYSQL PHPUNIT_TEST=framework
     - php: 7.3
-      env:
-        - PHPUNIT_TEST=core
-        - DB=PGSQL
+      env: DB=PGSQL PHPUNIT_TEST=core
     - php: 7.4
-      env:
-        - PHPUNIT_TEST=core
-        - DB=MYSQL
+      env: DB=MYSQL PHPUNIT_TEST=core
     # admin php tests
     - php: 7.1
-      env:
-        - PHPUNIT_TEST=admin
-        - DB=PGSQL
+      env: DB=MYSQL PHPUNIT_TEST=admin PDO=1
     - php: 7.2
-      env:
-        - PHPUNIT_TEST=admin
-        - DB=MYSQL
-        - PDO=1
+      env: DB=PGSQL PHPUNIT_TEST=admin
     - php: 7.4
-      env:
-        - PHPUNIT_TEST=admin
-        - DB=MYSQL
+      env: DB=MYSQL PHPUNIT_TEST=admin
     # behat tests
     - php: 7.1
-      env:
-        - BEHAT_TEST="@framework"
-        - DB=MYSQL
+      env: DB=MYSQL BEHAT_TEST="@framework"
     - php: 7.2
-      env:
-        - BEHAT_TEST="@cms"
-        - DB=MYSQL
+      env: DB=MYSQL BEHAT_TEST="@cms"
     - php: 7.3
-      env:
-        - BEHAT_TEST="@asset-admin"
-        - DB=MYSQL
+      env: DB=MYSQL BEHAT_TEST="@asset-admin"
     - php: 7.3
-      env:
-        - HEALTH_TEST=1
-        - DB=PGSQL
+      env: DB=PGSQL HEALTH_TEST=1
     - php: 7.4
-      env:
-        - HEALTH_TEST=1
-        - DB=MYSQL
-        - PDO=1
+      env: DB=MYSQL HEALTH_TEST=1 PDO=1
 
 before_script:
 # Extra $PATH
@@ -99,9 +71,11 @@ before_script:
 
 # Install composer dependencies
   - composer validate
-  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.x-dev; fi
+  # Fix for running phpunit 5 on php 7.4+
+  - composer require --no-update sminnee/phpunit-mock-objects:^3
+  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:^2; fi
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/recipe-testing:^1; fi;
-  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/frameworktest:^0.1.0; fi;
+  - if [[ $BEHAT_TEST == "@asset-admin" ]]; then composer require --no-update silverstripe/frameworktest:^0.1.0; fi;
   - if [[ $HEALTH_TEST ]]; then composer require --no-update silverstripe/serve:^2; fi;
   - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
   - if [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev; fi;
