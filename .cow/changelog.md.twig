@@ -1,22 +1,80 @@
- # {{ version }}
+# {{ version }}
 
-## Overview {{ '{#overview}' }}
+## Overview
 
-- 
+This release includes [CMS Recipe version X.X.X](#).
+
+A full list of module versions included in CMS Recipe {{ version }} is provided below. We recommend referencing recipes in your dependencies, rather than individual modules, to simplify version tracking. See [Recipes](/getting_started/).
+
+<details>
+<summary>Included module versions</summary>
+
+| Module | Version |
+| ------ | ------- |
+| silverstripe/admin | x.x.x |
+| silverstripe/asset-admin | x.x.x |
+| silverstripe/assets | x.x.x |
+| silverstripe/campaign-admin | x.x.x |
+| silverstripe/cms | x.x.x |
+| silverstripe/config | x.x.x |
+| silverstripe/errorpage | x.x.x |
+| silverstripe/framework | x.x.x |
+| silverstripe/graphql | x.x.x |
+| silverstripe/mimevalidator | x.x.x |
+| silverstripe/reports | x.x.x |
+| silverstripe/siteconfig | x.x.x |
+| silverstripe/versioned | x.x.x |
+| silverstripe/versioned-admin | x.x.x |
+
+</details>
 
 {% if version.stability == 'rc' %}
 
 ## Release Candidate
 
-This version of Silverstripe CMS is a **release candidate** for an upcoming stable version, and should not be applied to production websites. We encourage developers to test this version in development / testing environments and report any issues they encounter via GitHub.
+This version of Silverstripe CMS is a **release candidate** for an upcoming stable version, and should not be applied to production websites. We encourage developers to test this version in development / testing environments and [report any issues they encounter via GitHub](/contributing/issues_and_bugs/).
 
 {% elseif version.stable %}
 
-## Upgrading {{ '{#upgrading}' }}
+Upgrading to Recipe {{ version }} is recommended for all sites. This upgrade can be carried out by any development team familiar with Silverstripe.
+
+## Security considerations
+
+This release includes security fixes. Please see the release announcements for more detailed
+descriptions of each. We highly encourage upgrading your project to include the latest security patches nonetheless.
+
+We have provided a high-level severity rating of the vulnerabilities below based on the CVSS score, however please note this could vary based on the specifics of each project. You can [read the severity rating definitions in the Silverstripe CMS release process](/contributing/release_process/#severity-rating).
+
+ * [CVE-0000-0000 The Issue Title](https://www.silverstripe.org/download/security-releases/CVE-0000-0000) Severity: {# Critical/ High/ Medium/ Low #}
+ * [CVE-0000-0001 The Issue Title](https://www.silverstripe.org/download/security-releases/CVE-0000-0001) Severity: {# Critical/ High/ Medium/ Low #}
+
+## New features
+
+The [release announcement](#) includes the note worthy features, but be sure to review the change log for full detail.
+
+{# other upgrade notes here #}
+
+## Known issues
+
+{#
+* [Known issue](GitHub link)
+#}
+
+### Expected test failures
+
+The following PHPUnit test failures are expected and do not represent functional issues:
+
+{#
+* List test failures here
+#}
+
+```
+...
+```
+
 
 ...
 
 {% endif %}
 
 {{ logs }}
-
