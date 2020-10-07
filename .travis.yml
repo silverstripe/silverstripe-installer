@@ -20,7 +20,7 @@ addons:
 
 env:
   global:
-    - COMPOSER_ROOT_VERSION="4.6.x-dev"
+    - COMPOSER_ROOT_VERSION="4.x-dev"
     - SS_BASE_URL="http://localhost:8080/"
     - SS_ENVIRONMENT_TYPE="dev"
 
