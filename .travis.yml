@@ -81,8 +81,8 @@ before_script:
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/recipe-testing:^1; fi;
   - if [[ $BEHAT_TEST == "@asset-admin" ]]; then composer require --no-update silverstripe/frameworktest:^0.1.0; fi;
   - if [[ $HEALTH_TEST ]]; then composer require --no-update silverstripe/serve:^2; fi;
-  - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
-  - if [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev; fi;
+  - if ! [[ $HEALTH_TEST ]]; then composer update --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile $COMPOSER_ARG; fi;
+  - if [[ $HEALTH_TEST ]]; then composer update --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev $COMPOSER_ARG; fi;
 
 # Start behat services
   - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then mkdir artifacts; fi
