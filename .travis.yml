@@ -29,20 +29,24 @@ matrix:
   include:
     # Core php tests
     - php: 7.1
-      env: DB=MYSQL PHPUNIT_TEST=core PDO=1
+      env: DB=MYSQL PHPUNIT_TEST=core PDO=1 COMPOSER_ARG=--prefer-lowest
     - php: 7.2
       env: DB=MYSQL PHPUNIT_TEST=framework
     - php: 7.3
       env: DB=PGSQL PHPUNIT_TEST=core
     - php: 7.4
       env: DB=MYSQL PHPUNIT_TEST=core
+    - php: nightly
+      env: DB=MYSQL PHPUNIT_TEST=core COMPOSER_ARG=--ignore-platform-reqs
     # admin php tests
     - php: 7.1
-      env: DB=MYSQL PHPUNIT_TEST=admin PDO=1
+      env: DB=MYSQL PHPUNIT_TEST=admin PDO=1 COMPOSER_ARG=--prefer-lowest
     - php: 7.2
       env: DB=PGSQL PHPUNIT_TEST=admin
     - php: 7.4
       env: DB=MYSQL PHPUNIT_TEST=admin
+    - php: nightly
+      env: DB=MYSQL PHPUNIT_TEST=admin COMPOSER_ARG=--ignore-platform-reqs
     # behat tests
     - php: 7.1
       env: DB=MYSQL BEHAT_TEST="@framework"
@@ -77,8 +81,8 @@ before_script:
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/recipe-testing:^1; fi;
   - if [[ $BEHAT_TEST == "@asset-admin" ]]; then composer require --no-update silverstripe/frameworktest:^0.1.0; fi;
   - if [[ $HEALTH_TEST ]]; then composer require --no-update silverstripe/serve:^2; fi;
-  - if ! [[ $HEALTH_TEST ]]; then composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile; fi;
-  - if [[ $HEALTH_TEST ]]; then composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev; fi;
+  - if ! [[ $HEALTH_TEST ]]; then composer update --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile $COMPOSER_ARG; fi;
+  - if [[ $HEALTH_TEST ]]; then composer update --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev $COMPOSER_ARG; fi;
 
 # Start behat services
   - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then mkdir artifacts; fi
