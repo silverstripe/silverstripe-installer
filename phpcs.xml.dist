@@ -2,6 +2,8 @@
 <ruleset name="SS3">
     <description>Coding standard for SilverStripe 4.x</description>
 
+    <file>app</file>
+
     <!-- Don't sniff third party libraries -->
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/thirdparty/*</exclude-pattern>
