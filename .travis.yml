@@ -1,106 +1,84 @@
-language: php
+version: ~> 1.0
 
-dist: xenial
-
-services:
-  - mysql
-  - postgresql
-  - xvfb
-
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-
-addons:
-  apt:
-    packages:
-      - tidy
-      - chromium-chromedriver
-      - chromium-browser
+import:
+  - silverstripe/silverstripe-travis-shared:config/provision/self.yml
 
 env:
   global:
-    - COMPOSER_ROOT_VERSION="4.x-dev"
-    - SS_BASE_URL="http://localhost:8080/"
-    - SS_ENVIRONMENT_TYPE="dev"
+    - REQUIRE_RECIPE_TESTING="^1"
+    - REQUIRE_FRAMEWORKTEST="0.2.0"
 
 matrix:
   fast_finish: true
   include:
     # Core php tests
     - php: 7.1
-      env: DB=MYSQL PHPUNIT_TEST=core PDO=1 COMPOSER_ARG=--prefer-lowest
+      env:
+        - DB=MYSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="core"
+        - PDO=1
+        - COMPOSER_ARG=--prefer-lowest
     - php: 7.2
-      env: DB=MYSQL PHPUNIT_TEST=framework
+      env:
+        - DB=MYSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="framework"
     - php: 7.3
-      env: DB=PGSQL PHPUNIT_TEST=core
+      env:
+        - DB=PGSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="core"
     - php: 7.4
-      env: DB=MYSQL PHPUNIT_TEST=core
+      env:
+        - DB=MYSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="core"
     - php: nightly
-      env: DB=MYSQL PHPUNIT_TEST=core COMPOSER_ARG=--ignore-platform-reqs
+      env:
+        - DB=MYSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="core"
+        - COMPOSER_ARG=--ignore-platform-reqs
     # admin php tests
     - php: 7.1
-      env: DB=MYSQL PHPUNIT_TEST=admin PDO=1 COMPOSER_ARG=--prefer-lowest
+      env:
+        - DB=MYSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="admin"
+        - PDO=1
+        - COMPOSER_ARG=--prefer-lowest
     - php: 7.2
-      env: DB=PGSQL PHPUNIT_TEST=admin
+      env:
+        - DB=PGSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="admin"
     - php: 7.4
-      env: DB=MYSQL PHPUNIT_TEST=admin
+      env:
+        - DB=MYSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="admin"
     - php: nightly
-      env: DB=MYSQL PHPUNIT_TEST=admin COMPOSER_ARG=--ignore-platform-reqs
+      env:
+        - DB=MYSQL
+        - PHPUNIT_TEST=1
+        - PHPUNIT_SUITE="admin"
+        - COMPOSER_ARG=--ignore-platform-reqs
     # behat tests
     - php: 7.1
-      env: DB=MYSQL BEHAT_TEST="@framework"
+      env:
+        - DB=MYSQL
+        - BEHAT_TEST=1
+        - BEHAT_SUITE="framework"
     - php: 7.2
-      env: DB=MYSQL BEHAT_TEST="@cms"
-    - php: 7.3
-      env: DB=MYSQL BEHAT_TEST="@asset-admin"
-    - php: 7.3
-      env: DB=PGSQL HEALTH_TEST=1
+      env:
+        - DB=MYSQL
+        - BEHAT_TEST=1
+        - BEHAT_SUITE="cms"
     - php: 7.4
-      env: DB=MYSQL HEALTH_TEST=1 PDO=1
-
-before_script:
-# Extra $PATH
-  - export PATH=/usr/lib/chromium-browser/:$PATH
-
-# Remove preinstalled Chrome (google-chrome)
-  # this would conflict with our chromium-browser installation
-  # and its version is incompatible with chromium-chromedriver
-  - sudo apt-get remove -y --purge google-chrome-stable || true
-
-# Init PHP
-  - phpenv rehash
-  - phpenv config-rm xdebug.ini || true
-  - echo 'memory_limit = 2048M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-
-# Install composer dependencies
-  - composer validate
-  # Fix for running phpunit 5 on php 7.4+
-  - composer require --no-update sminnee/phpunit-mock-objects:^3
-  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:^2; fi
-  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/recipe-testing:^1; fi;
-  - if [[ $BEHAT_TEST == "@asset-admin" ]]; then composer require --no-update silverstripe/frameworktest:^0.1.0; fi;
-  - if [[ $HEALTH_TEST ]]; then composer require --no-update silverstripe/serve:^2; fi;
-  - if ! [[ $HEALTH_TEST ]]; then composer update --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile $COMPOSER_ARG; fi;
-  - if [[ $HEALTH_TEST ]]; then composer update --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile --no-dev $COMPOSER_ARG; fi;
-
-# Start behat services
-  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then mkdir artifacts; fi
-  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then cp composer.lock artifacts/; fi
-  - if [[ $BEHAT_TEST ]]; then (chromedriver > artifacts/chromedriver.log 2>&1 &); fi
-  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then (vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); sleep 3; fi
-
-script:
-  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit --testsuite $PHPUNIT_TEST; fi
-  - if [[ $BEHAT_TEST ]]; then vendor/bin/behat $BEHAT_TEST; fi
-  - if [[ $HEALTH_TEST ]]; then curl -vfL http://localhost:8080/dev/build?flush; fi
-  - if [[ $HEALTH_TEST ]]; then curl -vfL http://localhost:8080/admin; fi
-
-after_failure:
-  - if [[ $BEHAT_TEST ]] || [[ $HEALTH_TEST ]]; then php ./vendor/silverstripe/framework/tests/behat/travis-upload-artifacts.php --if-env ARTIFACTS_BUCKET,ARTIFACTS_KEY,ARTIFACTS_SECRET --target-path $TRAVIS_REPO_SLUG/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID --artifacts-base-url https://s3.amazonaws.com/$ARTIFACTS_BUCKET/ --artifacts-path ./artifacts/; fi
-
-notifications:
-  slack:
-    on_pull_requests: false
-    rooms:
-      secure: pr4kG5tTMqZy1DLejHd1MpPulAE7FtRvTYekWrKIbQF0SkbFz+s3v9fAk2AqCr+SxfV67M3M+sL52/q6TDjeGYJJttwA60gyfH/Qrc/ToCYP3J80Ca/hsk02mya0pF8Kpjg37XP8kNzAllR162mCwYKJgFiXO6Q1eb/aVJwiqmQ=
+      env:
+        - DB=MYSQL
+        - BEHAT_TEST=1
+        - BEHAT_SUITE="asset-admin"
+  allow_failures:
+    - php: nightly
