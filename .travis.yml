@@ -6,7 +6,7 @@ import:
 env:
   global:
     - REQUIRE_RECIPE_TESTING="^1"
-    - REQUIRE_FRAMEWORKTEST="0.2.0"
+    - REQUIRE_FRAMEWORKTEST="0.3.0"
 
 matrix:
   fast_finish: true
