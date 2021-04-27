@@ -7,6 +7,8 @@ env:
   global:
     - REQUIRE_RECIPE_TESTING="^1"
     - REQUIRE_FRAMEWORKTEST="0.3.0"
+    # vfsstream is a dev dependency of the assets module
+    - REQUIRE_EXTRA="mikey179/vfsstream:^1.6"
 
 matrix:
   fast_finish: true
