@@ -71,7 +71,7 @@ matrix:
       env:
         - DB=MYSQL
         - BEHAT_TEST=1
-        - BEHAT_SUITE="framework"
+        - BEHAT_SUITE="admin"
     - php: 7.2
       env:
         - DB=MYSQL
