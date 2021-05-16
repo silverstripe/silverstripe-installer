@@ -5,9 +5,9 @@
     "require": {
         "php": "^7.1 || ^8",
         "silverstripe/recipe-plugin": "^1.2",
-        "silverstripe/recipe-cms": "4.8.x-dev",
+        "silverstripe/recipe-cms": "4.8.0-rc1",
         "silverstripe-themes/simple": "~3.2.0",
-        "silverstripe/login-forms": "4.4.x-dev"
+        "silverstripe/login-forms": "4.4.1@stable"
     },
     "require-dev": {
         "sminnee/phpunit": "^5.7",
