@@ -1,0 +1,9 @@
+# See https://docs.silverstripe.org/en/4/developer_guides/email/ for additional information about setting up email
+---
+Name: project-emailconfig
+After:
+  - '#emailconfig'
+---
+SilverStripe\Core\Injector\Injector:
+  Swift_Transport:
+    class: Swift_SendmailTransport
