@@ -14,14 +14,14 @@ matrix:
   fast_finish: true
   include:
     # Core php tests
-    - php: 7.1
+    - php: 7.3
       env:
         - DB=MYSQL
         - PHPUNIT_TEST=1
         - PHPUNIT_SUITE="core"
         - PDO=1
         - COMPOSER_INSTALL_ARG="--prefer-lowest"
-    - php: 7.2
+    - php: 7.3
       env:
         - DB=MYSQL
         - PHPUNIT_TEST=1
@@ -43,14 +43,14 @@ matrix:
         - PHPUNIT_SUITE="core"
         - COMPOSER_INSTALL_ARG="--ignore-platform-reqs"
     # admin php tests
-    - php: 7.1
+    - php: 7.3
       env:
         - DB=MYSQL
         - PHPUNIT_TEST=1
         - PHPUNIT_SUITE="admin"
         - PDO=1
         - COMPOSER_INSTALL_ARG="--prefer-lowest"
-    - php: 7.2
+    - php: 7.3
       env:
         - DB=PGSQL
         - PHPUNIT_TEST=1
@@ -67,12 +67,12 @@ matrix:
         - PHPUNIT_SUITE="admin"
         - COMPOSER_INSTALL_ARG="--ignore-platform-reqs"
     # behat tests
-    - php: 7.1
+    - php: 7.3
       env:
         - DB=MYSQL
         - BEHAT_TEST=1
         - BEHAT_SUITE="admin"
-    - php: 7.2
+    - php: 7.3
       env:
         - DB=MYSQL
         - BEHAT_TEST=1
