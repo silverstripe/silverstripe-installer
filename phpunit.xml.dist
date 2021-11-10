@@ -1,7 +1,7 @@
 <!--
 	PHPUnit configuration for SilverStripe
 
-	Requires PHPUnit 5+
+	Requires PHPUnit 9+
 
 	Usage:
 	 - "vendor/bin/phpunit": Runs all tests in all folders
@@ -18,31 +18,33 @@
 	It is safe to remove this file for normal website operation.
 -->
 <phpunit bootstrap="vendor/silverstripe/framework/tests/bootstrap.php" colors="true">
-    <testsuite name="Default">
-        <directory>app/tests</directory>
-        <directory>vendor/silverstripe/cms/tests/php</directory>
-        <directory>vendor/silverstripe/framework/tests/php</directory>
-    </testsuite>
+    <testsuites>
+        <testsuite name="Default">
+            <directory>app/tests</directory>
+            <directory>vendor/silverstripe/cms/tests/php</directory>
+            <directory>vendor/silverstripe/framework/tests/php</directory>
+        </testsuite>
 
-    <!-- framework only -->
-    <testsuite name="framework">
-        <directory>vendor/silverstripe/framework/tests/php/</directory>
-    </testsuite>
+        <!-- framework only -->
+        <testsuite name="framework">
+            <directory>vendor/silverstripe/framework/tests/php/</directory>
+        </testsuite>
 
-    <!-- other core components -->
-    <testsuite name="core">
-        <directory>vendor/silverstripe/assets/tests/php/</directory>
-        <directory>vendor/silverstripe/versioned/tests/php/</directory>
-    </testsuite>
+        <!-- other core components -->
+        <testsuite name="core">
+            <directory>vendor/silverstripe/assets/tests/php/</directory>
+            <directory>vendor/silverstripe/versioned/tests/php/</directory>
+        </testsuite>
 
-    <!-- admin components -->
-    <testsuite name="admin">
-        <directory>vendor/silverstripe/admin/tests/php/</directory>
-        <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
-        <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
-        <directory>vendor/silverstripe/cms/tests/</directory>
-        <directory>vendor/silverstripe/graphql/tests/</directory>
-        <directory>vendor/silverstripe/reports/tests/</directory>
-        <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
-    </testsuite>
+        <!-- admin components -->
+        <testsuite name="admin">
+            <directory>vendor/silverstripe/admin/tests/php/</directory>
+            <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
+            <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
+            <directory>vendor/silverstripe/cms/tests/</directory>
+            <directory>vendor/silverstripe/graphql/tests/</directory>
+            <directory>vendor/silverstripe/reports/tests/</directory>
+            <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
