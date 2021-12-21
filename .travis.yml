@@ -5,7 +5,7 @@ import:
 
 env:
   global:
-    - REQUIRE_RECIPE_TESTING="^1"
+    - REQUIRE_RECIPE_TESTING="^2"
     - REQUIRE_FRAMEWORKTEST="^0.4.2"
     # vfsstream is a dev dependency of the assets module
     - REQUIRE_EXTRA="mikey179/vfsstream:^1.6"
