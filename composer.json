@@ -24,7 +24,11 @@
         "resources-dir": "_resources"
     },
     "config": {
-        "process-timeout": 600
+        "process-timeout": 600,
+        "allow-plugins": {
+            "silverstripe/recipe-plugin": true,
+            "silverstripe/vendor-plugin": true
+        }
     },
     "prefer-stable": true,
     "minimum-stability": "dev"
