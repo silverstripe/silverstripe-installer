@@ -28,7 +28,7 @@ matrix:
         - PHPUNIT_SUITE="framework"
     - php: 7.4
       env:
-        - DB=PGSQL
+        - DB=MYSQL
         - PHPUNIT_TEST=1
         - PHPUNIT_SUITE="core"
     - php: 8.0
@@ -51,7 +51,7 @@ matrix:
         - COMPOSER_INSTALL_ARG="--prefer-lowest"
     - php: 7.4
       env:
-        - DB=PGSQL
+        - DB=MYSQL
         - PHPUNIT_TEST=1
         - PHPUNIT_SUITE="admin"
     - php: 8.0
