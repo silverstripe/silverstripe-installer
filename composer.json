@@ -15,7 +15,8 @@
     "extra": {
         "project-files": [
             "app/_config/*",
-            ".env.example"
+            ".env.example",
+            ".graphql-generated/*"
         ],
         "public-files": [
             "assets/*",
