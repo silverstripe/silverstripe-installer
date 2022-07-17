@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  # Every day at 4:00pm UTC
+  schedule:
+    - cron: '0 16 * * *'
+
+jobs:
+  ci:
+    name: CI
+    # Only run cron on the silverstripe account
+    if: (github.event_name == 'schedule' && startsWith(github.repository, 'silverstripe/')) || (github.event_name != 'schedule')
+    uses: silverstripe/gha-ci/.github/workflows/ci.yml@v1
+    with:
+      # installer contains a sample behat.yml file, though there are no behat tests to run
+      endtoend: false
+      extra_jobs: |
+        - endtoend: true
+          endtoend_suite: admin
+          endtoend_config: vendor/silvestripe/admin/behat.yml
+        - endtoend: true
+          endtoend_suite: asset-admin
+          endtoend_config: vendor/silvestripe/asset-admin/behat.yml
+        - endtoend: true
+          endtoend_suite: cms
+          endtoend_config: vendor/silvestripe/cms/behat.yml
