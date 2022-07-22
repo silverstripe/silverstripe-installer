@@ -20,10 +20,10 @@ jobs:
       extra_jobs: |
         - endtoend: true
           endtoend_suite: admin
-          endtoend_config: vendor/silvestripe/admin/behat.yml
+          endtoend_config: vendor/silverstripe/admin/behat.yml
         - endtoend: true
           endtoend_suite: asset-admin
-          endtoend_config: vendor/silvestripe/asset-admin/behat.yml
+          endtoend_config: vendor/silverstripe/asset-admin/behat.yml
         - endtoend: true
           endtoend_suite: cms
-          endtoend_config: vendor/silvestripe/cms/behat.yml
+          endtoend_config: vendor/silverstripe/cms/behat.yml
