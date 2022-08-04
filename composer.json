@@ -3,15 +3,15 @@
     "type": "silverstripe-recipe",
     "description": "The SilverStripe Framework Installer",
     "require": {
-        "php": "^7.4 || ^8.0",
-        "silverstripe/recipe-plugin": "^1.2",
-        "silverstripe/recipe-cms": "4.x-dev",
+        "php": "^8.1",
+        "silverstripe/recipe-plugin": "^2",
+        "silverstripe/recipe-cms": "5.x-dev",
         "silverstripe-themes/simple": "~3.2.0",
-        "silverstripe/login-forms": "4.x-dev"
+        "silverstripe/login-forms": "5.x-dev"
     },
     "require-dev": {
-        "silverstripe/recipe-testing": "^2",
-        "silverstripe/frameworktest": "^0.4.2",
+        "silverstripe/recipe-testing": "^3",
+        "silverstripe/frameworktest": "^1",
         "mikey179/vfsstream": "^1.6.10"
     },
     "extra": {
