@@ -23,8 +23,7 @@
         "public-files": [
             "assets/*",
             "favicon.ico"
-        ],
-        "resources-dir": "_resources"
+        ]
     },
     "config": {
         "process-timeout": 600,
