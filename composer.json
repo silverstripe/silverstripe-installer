@@ -14,6 +14,430 @@
         "silverstripe/frameworktest": "^1",
         "mikey179/vfsstream": "^1.6.10"
     },
+    "repositories": {
+        "x-mink-extension": {
+            "type": "package",
+            "package": {
+                "version": "2.99.99",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/silverstripe/silverstripe-behat-extension/archive/master.zip"
+                },
+                "name": "behat/mink-extension",
+                "type": "behat-extension",
+                "description": "Mink extension for Behat",
+                "keywords": [
+                    "web",
+                    "test",
+                    "browser",
+                    "gui"
+                ],
+                "homepage": "http://extensions.behat.org/mink",
+                "license": "MIT",
+                "authors": [
+                    {
+                        "name": "Konstantin Kudryashov",
+                        "email": "ever.zet@gmail.com"
+                    },
+                    {
+                        "name": "Christophe Coevoet",
+                        "email": "stof@notk.org"
+                    }
+                ],
+                "require": {
+                    "php": ">=5.3.2",
+                    "behat/behat": "^3.0.5",
+                    "behat/mink": "^1.5",
+                    "symfony/config": "^6.1"
+                },
+                "require-dev": {
+                    "behat/mink-goutte-driver": "^1.1",
+                    "phpspec/phpspec": "^2.0"
+                },
+                "autoload": {
+                    "psr-0": {
+                        "Behat\\MinkExtension": "src/"
+                    }
+                },
+                "extra": {
+                    "branch-alias": {
+                        "dev-master": "2.x-dev"
+                    }
+                }
+            }
+        },
+        "x-behat-extension": {
+            "type": "package",
+            "package": {
+                "version": "5.x-dev",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/silverstripe/silverstripe-behat-extension/archive/5.zip"
+                },
+                "name": "silverstripe/behat-extension",
+                "type": "behat-extension",
+                "description": "SilverStripe framework extension for Behat",
+                "keywords": [
+                    "framework",
+                    "web",
+                    "bdd",
+                    "silverstripe"
+                ],
+                "homepage": "http://silverstripe.org",
+                "license": "MIT",
+                "authors": [
+                    {
+                        "name": "Michal Ochman",
+                        "email": "ochman.d.michal@gmail.com"
+                    },
+                    {
+                        "name": "Ingo Schommer",
+                        "email": "ingo@silverstripe.com"
+                    }
+                ],
+                "require": {
+                    "php": "^8.1",
+                    "phpunit/phpunit": "^9.5",
+                    "squizlabs/php_codesniffer": "^3.7",
+                    "behat/behat": "^3.11.0",
+                    "behat/mink": "^1.10.0",
+                    "behat/mink-extension": "^2.3.1",
+                    "silverstripe/mink-facebook-web-driver": "^2",
+                    "symfony/dom-crawler": "^6.1",
+                    "silverstripe/testsession": "^3",
+                    "silverstripe/framework": "^5",
+                    "symfony/finder": "^6.1"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "SilverStripe\\BehatExtension\\": "src/",
+                        "SilverStripe\\BehatExtension\\Tests\\": "tests/php/"
+                    }
+                },
+                "extra": [],
+                "bin": [
+                    "bin/behat-ss"
+                ],
+                "scripts": {
+                    "lint": "phpcs --standard=PSR2 -n src/ tests/php/"
+                },
+                "prefer-stable": true,
+                "minimum-stability": "dev"
+            }
+        },
+        "x-versioned": {
+            "type": "package",
+            "package": {
+                "version": "2.x-dev",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/silverstripe/silverstripe-versioned/archive/2.zip"
+                },
+                "name": "silverstripe/versioned",
+                "description": "SilverStripe Versioned component",
+                "type": "silverstripe-vendormodule",
+                "homepage": "http://silverstripe.org",
+                "license": "BSD-3-Clause",
+                "keywords": [
+                    "silverstripe",
+                    "versioned"
+                ],
+                "authors": [
+                    {
+                        "name": "SilverStripe",
+                        "homepage": "http://silverstripe.com"
+                    },
+                    {
+                        "name": "The SilverStripe Community",
+                        "homepage": "http://silverstripe.org"
+                    }
+                ],
+                "require": {
+                    "php": "^8.1",
+                    "silverstripe/framework": "^5",
+                    "symfony/cache": "^6.1",
+                    "silverstripe/vendor-plugin": "^2"
+                },
+                "require-dev": {
+                    "silverstripe/recipe-testing": "^3",
+                    "silverstripe/graphql": "^5",
+                    "squizlabs/php_codesniffer": "^3"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "SilverStripe\\Versioned\\": [
+                            "src/",
+                            "_legacy/"
+                        ],
+                        "SilverStripe\\Versioned\\Tests\\": "tests/php/"
+                    }
+                },
+                "scripts": {
+                    "lint": "vendor/bin/phpcs src/ tests/php/",
+                    "lint-clean": "vendor/bin/phpcbf src/ tests/php/"
+                },
+                "minimum-stability": "dev",
+                "prefer-stable": true
+            }
+        },
+        "x-framework": {
+            "type": "package",
+            "package": {
+                "version": "5.x-dev",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/silverstripe/silverstripe-framework/archive/5.zip"
+                },
+                "name": "silverstripe/framework",
+                "type": "silverstripe-vendormodule",
+                "description": "The SilverStripe framework",
+                "homepage": "http://silverstripe.org",
+                "license": "BSD-3-Clause",
+                "keywords": [
+                    "silverstripe",
+                    "framework"
+                ],
+                "authors": [
+                    {
+                        "name": "SilverStripe",
+                        "homepage": "http://silverstripe.com"
+                    },
+                    {
+                        "name": "The SilverStripe Community",
+                        "homepage": "http://silverstripe.org"
+                    }
+                ],
+                "bin": [
+                    "sake"
+                ],
+                "require": {
+                    "php": "^8.1",
+                    "bramus/monolog-colored-line-formatter": "^2.0.3",
+                    "composer/installers": "^2.1.1",
+                    "guzzlehttp/guzzle": "^7.4.5",
+                    "guzzlehttp/psr7": "^2.4.0",
+                    "embed/embed": "^4.4.4",
+                    "league/csv": "^9.8.0",
+                    "m1/env": "^2.2.0",
+                    "monolog/monolog": "^1.27.1",
+                    "nikic/php-parser": "^4.14.0",
+                    "psr/container": "^1.1.2",
+                    "silverstripe/config": "^2",
+                    "silverstripe/assets": "^2",
+                    "silverstripe/vendor-plugin": "^2",
+                    "sminnee/callbacklist": "^0.1.1",
+                    "swiftmailer/swiftmailer": "^6.3.0",
+                    "symfony/cache": "^6.1",
+                    "symfony/config": "^6.1",
+                    "symfony/translation": "^6.1",
+                    "symfony/yaml": "^6.1",
+                    "ext-ctype": "*",
+                    "ext-dom": "*",
+                    "ext-hash": "*",
+                    "ext-intl": "*",
+                    "ext-json": "*",
+                    "ext-mbstring": "*",
+                    "ext-session": "*",
+                    "ext-simplexml": "*",
+                    "ext-tokenizer": "*",
+                    "ext-xml": "*"
+                },
+                "require-dev": {
+                    "phpunit/phpunit": "^9.5",
+                    "silverstripe/versioned": "^2",
+                    "squizlabs/php_codesniffer": "^3.7"
+                },
+                "conflict": {
+                    "egulias/email-validator": "^2",
+                    "oscarotero/html-parser": "<0.1.5"
+                },
+                "provide": {
+                    "psr/container-implementation": "1.0.0"
+                },
+                "extra": {
+                    "expose": [
+                        "client/images",
+                        "client/styles"
+                    ]
+                },
+                "autoload": {
+                    "psr-4": {
+                        "SilverStripe\\Control\\": "src/Control/",
+                        "SilverStripe\\Control\\Tests\\": "tests/php/Control/",
+                        "SilverStripe\\Core\\": "src/Core/",
+                        "SilverStripe\\Core\\Tests\\": "tests/php/Core/",
+                        "SilverStripe\\Dev\\": "src/Dev/",
+                        "SilverStripe\\Dev\\Tests\\": "tests/php/Dev/",
+                        "SilverStripe\\Forms\\": "src/Forms/",
+                        "SilverStripe\\Forms\\Tests\\": "tests/php/Forms/",
+                        "SilverStripe\\i18n\\": "src/i18n/",
+                        "SilverStripe\\i18n\\Tests\\": "tests/php/i18n/",
+                        "SilverStripe\\Logging\\": "src/Logging/",
+                        "SilverStripe\\Logging\\Tests\\": "tests/php/Logging/",
+                        "SilverStripe\\ORM\\": "src/ORM/",
+                        "SilverStripe\\ORM\\Tests\\": "tests/php/ORM/",
+                        "SilverStripe\\Security\\": "src/Security/",
+                        "SilverStripe\\Security\\Tests\\": "tests/php/Security/",
+                        "SilverStripe\\View\\": "src/View/",
+                        "SilverStripe\\View\\Tests\\": "tests/php/View/",
+                        "SilverStripe\\Framework\\Tests\\Behaviour\\": "tests/behat/src/"
+                    },
+                    "files": [
+                        "src/includes/constants.php"
+                    ],
+                    "classmap": [
+                        "thirdparty/swiftmailer"
+                    ]
+                },
+                "include-path": [
+                    "src/",
+                    "src/includes/",
+                    "thirdparty/"
+                ],
+                "scripts": {
+                    "lint": "phpcs src/ tests/php/ tests/behat/src/",
+                    "lint-clean": "phpcbf src/ tests/php/ tests/behat/src/",
+                    "php-peg": "php thirdparty/php-peg/cli.php src/View/SSTemplateParser.peg > src/View/SSTemplateParser.php"
+                },
+                "minimum-stability": "dev",
+                "prefer-stable": true
+            }
+        },
+        "x-event-dispatcher": {
+            "type": "package",
+            "package": {
+                "version": "1.x-dev",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/silverstripe/silverstripe-event-dispatcher/archive/1.zip"
+                },
+                "name": "silverstripe/event-dispatcher",
+                "description": "Publish and subscribe to events in Silverstripe CMS or your Silverstripe application",
+                "type": "silverstripe-vendormodule",
+                "keywords": [
+                    "silverstripe",
+                    "CMS",
+                    "events"
+                ],
+                "license": "BSD-3-Clause",
+                "require": {
+                    "php": "^8.1",
+                    "silverstripe/framework": "^5",
+                    "symfony/event-dispatcher": "^6.1",
+                    "psr/event-dispatcher": "^1"
+                },
+                "require-dev": {
+                    "phpunit/phpunit": "^9.5",
+                    "squizlabs/php_codesniffer": "^3.7"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "SilverStripe\\EventDispatcher\\": "src/",
+                        "SilverStripe\\EventDispatcher\\Tests\\": "tests/"
+                    }
+                },
+                "scripts": {
+                    "lint": "vendor/bin/phpcs src/ tests/",
+                    "lint-clean": "vendor/bin/phpcbf src/ tests/"
+                },
+                "minimum-stability": "dev",
+                "prefer-stable": true
+            }
+        },
+        "x-config": {
+            "type": "package",
+            "package": {
+                "version": "2.x-dev",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/silverstripe/silverstripe-config/archive/2.zip"
+                },
+                "name": "silverstripe/config",
+                "description": "SilverStripe configuration based on YAML and class statics",
+                "license": "BSD-3-Clause",
+                "require": {
+                    "php": "^8.1",
+                    "symfony/finder": "^6.1",
+                    "symfony/yaml": "^6.1",
+                    "marcj/topsort": "^2.0.0",
+                    "psr/simple-cache": "^1.0.1"
+                },
+                "require-dev": {
+                    "silverstripe/framework": "^5",
+                    "phpunit/phpunit": "^9.5",
+                    "mikey179/vfsstream": "^1.6",
+                    "squizlabs/php_codesniffer": "^3.5"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "SilverStripe\\Config\\": "src/",
+                        "SilverStripe\\Config\\Tests\\": "tests/"
+                    }
+                }
+            }
+        },
+        "x-assets": {
+            "type": "package",
+            "package": {
+                "version": "2.x-dev",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/silverstripe/silverstripe-assets/archive/2.zip"
+                },
+                "name": "silverstripe/assets",
+                "description": "SilverStripe Assets component",
+                "type": "silverstripe-vendormodule",
+                "homepage": "http://silverstripe.org",
+                "license": "BSD-3-Clause",
+                "keywords": [
+                    "silverstripe",
+                    "assets"
+                ],
+                "authors": [
+                    {
+                        "name": "SilverStripe",
+                        "homepage": "http://silverstripe.com"
+                    },
+                    {
+                        "name": "The SilverStripe Community",
+                        "homepage": "http://silverstripe.org"
+                    }
+                ],
+                "require": {
+                    "php": "^8.1",
+                    "silverstripe/framework": "^5",
+                    "silverstripe/vendor-plugin": "^2",
+                    "symfony/filesystem": "^6.1",
+                    "intervention/image": "^2.7.2",
+                    "league/flysystem": "^1.1.9"
+                },
+                "require-dev": {
+                    "silverstripe/recipe-testing": "^3",
+                    "silverstripe/versioned": "^2",
+                    "squizlabs/php_codesniffer": "^3.7",
+                    "mikey179/vfsstream": "^v1.6.11"
+                },
+                "suggest": {
+                    "ext-exif": "If you use GD backend (the default) you may want to have EXIF extension installed to elude some tricky issues"
+                },
+                "extra": {
+                    "installer-name": "silverstripe-assets"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "SilverStripe\\Assets\\": "src/",
+                        "SilverStripe\\Assets\\Tests\\": "tests/php/"
+                    }
+                },
+                "scripts": {
+                    "lint": "phpcs src/ tests/php/",
+                    "lint-clean": "phpcbf src/ tests/php/"
+                },
+                "minimum-stability": "dev",
+                "prefer-stable": true
+            }
+        }
+    },
     "extra": {
         "project-files": [
             "app/_config/*",
@@ -23,6 +447,19 @@
         "public-files": [
             "assets/*",
             "favicon.ico"
+        ],
+        "project-files-installed": [
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mimevalidator.yml",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "web.config"
         ]
     },
     "config": {
@@ -31,6 +468,9 @@
             "composer/installers": true,
             "silverstripe/recipe-plugin": true,
             "silverstripe/vendor-plugin": true
+        },
+        "platform": {
+            "php": "8.1"
         }
     },
     "prefer-stable": true,
