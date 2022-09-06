@@ -7,7 +7,8 @@
         "silverstripe/recipe-plugin": "^1.2",
         "silverstripe/recipe-cms": "4.x-dev",
         "silverstripe-themes/simple": "~3.2.0",
-        "silverstripe/login-forms": "4.x-dev"
+        "silverstripe/login-forms": "4.x-dev",
+        "symfony/phpunit-bridge": "^6.1"
     },
     "require-dev": {
         "silverstripe/recipe-testing": "^2",
