@@ -4,10 +4,10 @@
     "description": "The SilverStripe Framework Installer",
     "require": {
         "php": "^8.1",
-        "silverstripe/recipe-plugin": "^2",
-        "silverstripe/recipe-cms": "5.x-dev",
+        "silverstripe/recipe-plugin": "2.0.0-alpha1",
+        "silverstripe/recipe-cms": "5.0.0-alpha1",
         "silverstripe-themes/simple": "~3.2.0",
-        "silverstripe/login-forms": "5.x-dev"
+        "silverstripe/login-forms": "5.0.0-alpha1"
     },
     "require-dev": {
         "silverstripe/recipe-testing": "^3",
