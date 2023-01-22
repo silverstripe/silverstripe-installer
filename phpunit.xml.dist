@@ -22,30 +22,60 @@
     <testsuites>
         <testsuite name="Default">
             <directory>app/tests</directory>
-            <directory>vendor/silverstripe/cms/tests/php</directory>
-            <directory>vendor/silverstripe/framework/tests/php</directory>
+            <directory>vendor/silverstripe</directory>
         </testsuite>
 
-        <!-- framework only -->
-        <testsuite name="framework">
+        <testsuite name="framework-1">
+            <directory>vendor/silverstripe/framework/tests/php/Control</directory>
+            <directory>vendor/silverstripe/framework/tests/php/Core</directory>
+            <directory>vendor/silverstripe/framework/tests/php/Dev</directory>
+            <directory>vendor/silverstripe/framework/tests/php/Forms</directory>
+            <directory>vendor/silverstripe/framework/tests/php/i18n</directory>
+            <directory>vendor/silverstripe/framework/tests/php/Logging</directory>
+        </testsuite>
+
+        <testsuite name="framework-2">
             <directory>vendor/silverstripe/framework/tests/php/</directory>
+            <exclude>vendor/silverstripe/framework/tests/php/Control</exclude>
+            <exclude>vendor/silverstripe/framework/tests/php/Core</exclude>
+            <exclude>vendor/silverstripe/framework/tests/php/Dev</exclude>
+            <exclude>vendor/silverstripe/framework/tests/php/Forms</exclude>
+            <exclude>vendor/silverstripe/framework/tests/php/i18n</exclude>
+            <exclude>vendor/silverstripe/framework/tests/php/Logging</exclude>
         </testsuite>
 
-        <!-- other core components -->
-        <testsuite name="core">
+        <testsuite name="assets-1">
+            <directory>vendor/silverstripe/assets/tests/php/Dev</directory>
+            <directory>vendor/silverstripe/assets/tests/php/FilenameParsing</directory>
+            <directory>vendor/silverstripe/assets/tests/php/Flysystem</directory>
+            <directory>vendor/silverstripe/assets/tests/php/GDTest</directory>
+        </testsuite>
+
+        <testsuite name="assets-2">
             <directory>vendor/silverstripe/assets/tests/php/</directory>
-            <directory>vendor/silverstripe/versioned/tests/php/</directory>
+            <exclude>vendor/silverstripe/assets/tests/php/Dev</exclude>
+            <exclude>vendor/silverstripe/assets/tests/php/FilenameParsing</exclude>
+            <exclude>vendor/silverstripe/assets/tests/php/Flysystem</exclude>
+            <exclude>vendor/silverstripe/assets/tests/php/GDTest</exclude>
         </testsuite>
 
-        <!-- admin components -->
-        <testsuite name="admin">
+        <testsuite name="admin-1">
             <directory>vendor/silverstripe/admin/tests/php/</directory>
             <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
             <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
+            <directory>vendor/silverstripe/config/tests/</directory>
             <directory>vendor/silverstripe/cms/tests/</directory>
+            <directory>vendor/silverstripe/errorpage/tests/</directory>
+        </testsuite>
+
+        <testsuite name="admin-2">
             <directory>vendor/silverstripe/graphql/tests/</directory>
+            <directory>vendor/silverstripe/login-forms/tests/php/</directory>
+            <directory>vendor/silverstripe/mimevalidator/tests/</directory>
+            <directory>vendor/silverstripe/registry/tests/</directory>
             <directory>vendor/silverstripe/reports/tests/</directory>
             <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
+            <directory>vendor/silverstripe/versioned/tests/php/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
