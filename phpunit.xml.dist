@@ -43,7 +43,11 @@
             <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
             <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
             <directory>vendor/silverstripe/cms/tests/</directory>
+            <directory>vendor/silverstripe/config/tests/</directory>
+            <directory>vendor/silverstripe/errorpage/tests/</directory>
             <directory>vendor/silverstripe/graphql/tests/</directory>
+            <directory>vendor/silverstripe/login-forms/tests/php/</directory>
+            <directory>vendor/silverstripe/mimevalidator/tests/</directory>
             <directory>vendor/silverstripe/reports/tests/</directory>
             <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
         </testsuite>
