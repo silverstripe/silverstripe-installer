@@ -17,6 +17,9 @@ jobs:
     with:
       # installer contains a sample behat.yml file, though there are no behat tests to run
       endtoend: false
+      # require the following in ci.yml rather than composer.json require-dev specifically for installer because unlike
+      # regular modules, require-dev will get installed to projects during `composer create-project silverstripe/installer`
+      composer_require_extra: silverstripe/recipe-testing:^3 silverstripe/frameworktest:^1 mikey179/vfsstream:^1.6.10
       extra_jobs: |
         - endtoend: true
           endtoend_suite: admin

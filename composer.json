@@ -11,9 +11,7 @@
         "silverstripe/login-forms": "5.x-dev"
     },
     "require-dev": {
-        "silverstripe/recipe-testing": "^3",
-        "silverstripe/frameworktest": "^1",
-        "mikey179/vfsstream": "^1.6.10"
+        "phpunit/phpunit": "^9.5"
     },
     "extra": {
         "project-files": [
