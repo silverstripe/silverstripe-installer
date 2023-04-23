@@ -5,25 +5,27 @@
 
 Base project folder for a Silverstripe ([http://silverstripe.org](http://silverstripe.org)) installation. Required modules are installed via [http://github.com/silverstripe/recipe-cms](http://github.com/silverstripe/recipe-cms). For information on how to change the dependencies in a recipe, please have a look at [https://github.com/silverstripe/recipe-plugin](https://github.com/silverstripe/recipe-plugin). In addition, installer includes [theme/simple](https://github.com/silverstripe-themes/silverstripe-simple) as a default theme.
 
-## Installation ##
+## Installation
 
-`composer create-project silverstripe/installer my-app`
+```sh
+composer create-project silverstripe/installer my-app
+```
 
-See [Getting Started](https://docs.silverstripe.org/en/4/getting_started/) for more information.
+See [Getting Started](https://docs.silverstripe.org/en/getting_started/) for more information.
 
-## Bugtracker ##
+## Bugtracker
 
 Bugs are tracked on github.com ([framework issues](https://github.com/silverstripe/silverstripe-framework/issues),
 [cms issues](https://github.com/silverstripe/silverstripe-cms/issues)).
-Please read our [issue reporting guidelines](https://docs.silverstripe.org/en/4/contributing/issues_and_bugs/).
+Please read our [issue reporting guidelines](https://docs.silverstripe.org/en/contributing/issues_and_bugs/).
 
-## Development and Contribution ##
+## Development and Contribution
 
-If you would like to make changes to the Silverstripe core codebase, we have an extensive [guide to contributing code](https://docs.silverstripe.org/en/4/contributing/code/).
+If you would like to make changes to the Silverstripe core codebase, we have an extensive [guide to contributing code](https://docs.silverstripe.org/en/contributing/code/).
 
-## Links ##
+## Links
 
- * [Changelogs](https://docs.silverstripe.org/en/4/changelogs/)
+ * [Changelogs](https://docs.silverstripe.org/en/changelogs/)
  * [Bugtracker: Framework](https://github.com/silverstripe/silverstripe-framework/issues)
  * [Bugtracker: CMS](https://github.com/silverstripe/silverstripe-cms/issues)
  * [Bugtracker: Installer](https://github.com/silverstripe/silverstripe-installer/issues)
