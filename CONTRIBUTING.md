@@ -9,7 +9,7 @@ Please read our [issue reporting guidelines](http://doc.silverstripe.org/framewo
 
 ## Development and Contribution ##
 
-For submitting patches, please read our [guide to contributing code](http://doc.silverstripe.org/framework/en/misc/contributing/code). We only accept pull requests on github.com.
+For submitting patches, please read our [guide to contributing code](https://docs.silverstripe.org/en/5/contributing/code/). We only accept pull requests on github.com.
 
 ## Links ##
 
