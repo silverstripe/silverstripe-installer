@@ -11,7 +11,7 @@
         "silverstripe/login-forms": "5.0.x-dev"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.6"
     },
     "extra": {
         "project-files": [
