@@ -29,9 +29,7 @@
         <!-- Framework ORM tests are split up to run in parallel -->
         <testsuite name="framework-core">
             <directory>vendor/silverstripe/framework/tests/php</directory>
-            <exclude>
-                <directory>vendor/silverstripe/framework/tests/php/ORM</directory>
-            </exclude>
+            <exclude>vendor/silverstripe/framework/tests/php/ORM</exclude>
         </testsuite>
         <testsuite name="framework-orm">
             <directory>vendor/silverstripe/framework/tests/php/ORM</directory>
