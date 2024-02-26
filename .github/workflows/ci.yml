@@ -14,7 +14,7 @@ jobs:
       endtoend: false
       # require the following in ci.yml rather than composer.json require-dev specifically for installer because unlike
       # regular modules, require-dev will get installed to projects during `composer create-project silverstripe/installer`
-      composer_require_extra: silverstripe/recipe-testing:^3 silverstripe/frameworktest:^1 mikey179/vfsstream:^1.6.10
+      composer_require_extra: silverstripe/recipe-testing:^4 silverstripe/frameworktest:^2 mikey179/vfsstream:^1.6.10
       extra_jobs: |
         - endtoend: true
           endtoend_suite: admin
