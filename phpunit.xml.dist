@@ -45,7 +45,6 @@
         <testsuite name="admin">
             <directory>vendor/silverstripe/admin/tests/php/</directory>
             <directory>vendor/silverstripe/asset-admin/tests/php/</directory>
-            <directory>vendor/silverstripe/campaign-admin/tests/php/</directory>
             <directory>vendor/silverstripe/cms/tests/</directory>
             <directory>vendor/silverstripe/config/tests/</directory>
             <directory>vendor/silverstripe/errorpage/tests/</directory>
