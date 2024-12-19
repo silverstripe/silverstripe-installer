@@ -2,6 +2,7 @@
     "name": "silverstripe/installer",
     "type": "silverstripe-recipe",
     "description": "The SilverStripe Framework Installer",
+    "license": "BSD-3-Clause",
     "require": {
         "php": "^8.3",
         "silverstripe/recipe-plugin": "2.0.x-dev",
