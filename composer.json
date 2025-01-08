@@ -6,7 +6,7 @@
     "require": {
         "php": "^8.3",
         "silverstripe/recipe-plugin": "2.x-dev",
-        "silverstripe/vendor-plugin": "2.x-dev",
+        "silverstripe/vendor-plugin": "3.x-dev",
         "silverstripe/recipe-cms": "6.x-dev",
         "silverstripe-themes/simple": "3.x-dev",
         "silverstripe/login-forms": "6.x-dev"
