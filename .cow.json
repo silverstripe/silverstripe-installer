@@ -3,8 +3,7 @@
   "child-stability-inherit": true,
   "dependency-constraint": "loose",
   "vendors": [
-    "silverstripe",
-    "silverstripe-themes"
+    "silverstripe"
   ],
   "tests": [
     "vendor/bin/phpunit vendor/silverstripe/framework/tests/php",
