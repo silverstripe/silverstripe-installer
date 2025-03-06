@@ -25,3 +25,6 @@ jobs:
         - endtoend: true
           endtoend_suite: cms
           endtoend_config: vendor/silverstripe/cms/behat.yml
+        - endtoend: true
+          endtoend_suite: htmleditor-tinymce
+          endtoend_config: vendor/silverstripe/htmleditor-tinymce/behat.yml

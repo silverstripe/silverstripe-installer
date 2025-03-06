@@ -38,6 +38,7 @@
         <!-- other core components -->
         <testsuite name="core">
             <directory>vendor/silverstripe/assets/tests/php/</directory>
+            <directory>vendor/silverstripe/htmleditor-tinymce/tests/php/</directory>
             <directory>vendor/silverstripe/versioned/tests/php/</directory>
         </testsuite>
 
