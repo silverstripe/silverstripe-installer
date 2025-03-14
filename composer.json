@@ -9,7 +9,8 @@
         "silverstripe/vendor-plugin": "3.0.x-dev",
         "silverstripe/recipe-cms": "6.0.x-dev",
         "silverstripe/startup-theme": "1.0.x-dev",
-        "silverstripe/login-forms": "6.0.x-dev"
+        "silverstripe/login-forms": "6.0.x-dev",
+        "silverstripe/htmleditor-tinymce": "1.0.x-dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.3"
