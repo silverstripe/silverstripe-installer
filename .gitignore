@@ -3,6 +3,6 @@
 /silverstripe-cache/
 /.env
 /vendor/
-/themes/simple/
+/themes/startup-theme/
 /_resources/
 /public/_resources/
