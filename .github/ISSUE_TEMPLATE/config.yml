@@ -1,4 +1,4 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
   - name: Security Vulnerability
     url: https://docs.silverstripe.org/en/contributing/issues_and_bugs/#reporting-security-issues
