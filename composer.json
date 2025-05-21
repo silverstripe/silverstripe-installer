@@ -5,12 +5,12 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": "^8.3",
-        "silverstripe/recipe-plugin": "~2.1.0@stable",
-        "silverstripe/vendor-plugin": "~3.0.0@rc",
-        "silverstripe/recipe-cms": "~6.0.0@rc",
-        "silverstripe/startup-theme": "~1.0.0@rc",
-        "silverstripe/login-forms": "~6.0.0@rc",
-        "silverstripe/htmleditor-tinymce": "~1.0.0@rc"
+        "silverstripe/recipe-plugin": "2.1.x-dev",
+        "silverstripe/vendor-plugin": "3.0.x-dev",
+        "silverstripe/recipe-cms": "6.0.x-dev",
+        "silverstripe/startup-theme": "1.0.x-dev",
+        "silverstripe/login-forms": "6.0.x-dev",
+        "silverstripe/htmleditor-tinymce": "1.0.x-dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.3"
