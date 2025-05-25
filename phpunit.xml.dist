@@ -54,6 +54,7 @@
             <directory>vendor/silverstripe/mimevalidator/tests/</directory>
             <directory>vendor/silverstripe/reports/tests/</directory>
             <directory>vendor/silverstripe/siteconfig/tests/php/</directory>
+            <directory>vendor/silverstripe/versioned-admin/tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
