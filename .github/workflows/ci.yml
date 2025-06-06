@@ -30,3 +30,6 @@ jobs:
         - endtoend: true
           endtoend_suite: htmleditor-tinymce
           endtoend_config: vendor/silverstripe/htmleditor-tinymce/behat.yml
+        - endtoend: true
+          endtoend_suite: versioned-admin
+          endtoend_config: vendor/silverstripe/versioned-admin/behat.yml
