@@ -24,8 +24,8 @@ AddHandler default-handler php phtml php3 php4 php5 inc
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule error[^\\/]*\.html$ - [L]
 
-    # Block invalid file extensions
-    RewriteCond %{REQUEST_URI} !^[^.]*\.(?i:css|js|ace|arc|arj|asf|au|avi|bmp|bz2|cab|cda|csv|dmg|doc|docx|dotx|flv|gif|gpx|gz|hqx|ico|jpeg|jpg|kml|m4a|m4v|mid|midi|mkv|mov|mp3|mp4|mpa|mpeg|mpg|ogg|ogv|pages|pcx|pdf|png|pps|ppt|pptx|potx|ra|ram|rm|rtf|sit|sitx|tar|tgz|tif|tiff|txt|wav|webm|wma|wmv|xls|xlsx|xltx|zip|zipx)$
+    # Allow specific file extensions
+    RewriteCond %{REQUEST_URI} !^[^.]*[^\/]*\.(?i:css|js|ace|arc|arj|asf|au|avi|bmp|brf|bz2|cab|cda|csv|dmg|doc|docx|dotx|flv|gif|gz|hqx|ico|jpeg|jpg|kml|m4a|m4v|mid|midi|mkv|mov|mp3|mp4|mpa|mpeg|mpg|ogg|ogv|pages|pcx|pdf|png|pps|ppt|pptx|potx|ra|ram|rm|rtf|sit|sitx|tar|tgz|tif|tiff|txt|wav|webm|webp|wma|wmv|xls|xlsx|xltx|zip|zipx)$
     RewriteRule .* - [F]
 
     # Non-existent files passed to requesthandler
