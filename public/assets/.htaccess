@@ -13,6 +13,11 @@ AddHandler default-handler php phtml php3 php4 php5 inc
     php_flag engine off
 </IfModule>
 
+# Deny direct access to executable scripts (AddHandler above is not honoured by modern mod_php/php-fpm)
+<FilesMatch "(?i)\.(?:php[0-9]*|phar|phtml|pht|inc)$">
+    Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_env.c>
         SetEnv HTTP_MOD_REWRITE On
@@ -22,7 +27,8 @@ AddHandler default-handler php phtml php3 php4 php5 inc
 
     # Allow error pages
     RewriteCond %{REQUEST_FILENAME} -f
-    RewriteRule error[^\\/]*\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} (?:^|/)error[^/]*\.html$
+    RewriteRule .* - [L]
 
     # Allow specific file extensions
     RewriteCond %{REQUEST_URI} !^[^.]*[^\/]*\.(?i:css|js|ace|arc|arj|asf|au|avi|bmp|brf|bz2|cab|cda|csv|dmg|doc|docx|dotx|flv|gif|gz|hqx|ico|jpeg|jpg|kml|m4a|m4v|mid|midi|mkv|mov|mp3|mp4|mpa|mpeg|mpg|ogg|ogv|pages|pcx|pdf|png|pps|ppt|pptx|potx|ra|ram|rm|rtf|sit|sitx|tar|tgz|tif|tiff|txt|wav|webm|webp|wma|wmv|xls|xlsx|xltx|zip|zipx)$
